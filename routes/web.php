@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+Route::get('/admin', function () {
+    return view('admin/dashboard');
+})->middleware('isLogged')->name('admin');
 
-Route::get('/manual', function(){
-    return view('manual');
+// Route::get('/logar', function (){
+//     return view('admin/includes/login');
+// })->name('logar');
+
+Route::controller(UserController::class)->group(function(){
+    Route::post('/logar', 'store');
+    Route::get('/logar', 'index');
+    Route::get('/sair','logout')->name('sair');
 });

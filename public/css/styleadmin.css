@@ -1,0 +1,119 @@
+body{
+    /* background-color: antiquewhite; */
+}
+ul{
+    list-style-type: none;
+}
+*{
+    padding: 0;
+    margin: 0;
+}
+.container-fluid{
+    background-color: blueviolet;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+#RespostaAjax{
+    width: 50%;
+    margin: 0 auto;
+    position: absolute;
+    left: 25%;
+    z-index: 100;
+    top: 10%;
+    text-align: center;
+    display: none;
+}
+#Form_Login_Admin{
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0px 0px 5px 5px rgba(0, 132, 255, 0.445);
+    border-radius: 10px;
+    padding: 5px;
+    /* background-color: aqua; */
+}
+#Form_Login_Admin input{
+    margin: 5px;
+}
+.topo_sistema{
+    background-color: yellowgreen;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo_topo{
+    background-color: blue;
+}
+#Dashboard{
+    background-color:#ccc ;
+    display: flex;
+    position: relative;
+    top: 0;
+}
+.menu_lateral{
+    background-color: aqua;
+}
+.fecha_menu{
+    /* background-color: rgb(255, 0, 221); */
+    text-align: right;
+    padding: 2px 5px;
+    font-size: 2em;
+    display: none;
+}
+.fechar_menu{
+    /* background-color: aqua; */
+    padding: 5px;
+    cursor: pointer;
+}
+.menu_lateral ul{
+    /* background-color: bisque; */
+    padding: 0;
+    margin: 0;
+}
+.menu_lateral ul li{
+    /* background-color: yellow; */
+    margin-bottom: 1px;
+}
+.menu_lateral ul li a{
+    display: block;
+    /* background-color: rgb(62, 104, 14); */
+}
+.menu_lateral ul li a:hover{
+    background-color: antiquewhite;
+}
+.conteudo_dashboard{
+    background-color: bisque;
+    /* width: 100%; */
+    position: relative;
+}
+
+
+@media screen and (max-width: 900px){
+    #Dashboard{
+        display: flex;
+        flex-direction: column;
+    }
+    .menu_lateral{
+        text-align: center;
+    }
+    .menu_lateral ul li a{
+        padding: 10px 0;
+        font-size: 2em;
+    }
+    .fecha_menu{
+        display: block;
+        margin: 2px;
+    }
+    .ul_menu_lateral{
+        display: none;
+    }
+    .conteudo_dashboard{
+        background-color: #F00;
+    }
+    
+}
