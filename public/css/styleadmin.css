@@ -9,7 +9,7 @@ ul{
     margin: 0;
 }
 .container-fluid{
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,23 +40,23 @@ ul{
     margin: 5px;
 }
 .topo_sistema{
-    background-color: yellowgreen;
+    /* background-color: yellowgreen; */
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 .logo_topo{
-    background-color: blue;
+    /* background-color: blue; */
 }
 #Dashboard{
-    background-color:#ccc ;
+    /* background-color:#ccc ; */
     display: flex;
     position: relative;
     top: 0;
 }
 .menu_lateral{
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 .fecha_menu{
     /* background-color: rgb(255, 0, 221); */
@@ -81,13 +81,15 @@ ul{
 }
 .menu_lateral ul li a{
     display: block;
+    padding: 5px;
+    font-size: 1.2em;
     /* background-color: rgb(62, 104, 14); */
 }
 .menu_lateral ul li a:hover{
     background-color: antiquewhite;
 }
 .conteudo_dashboard{
-    background-color: bisque;
+    /* background-color: bisque; */
     /* width: 100%; */
     position: relative;
 }
@@ -113,7 +115,7 @@ ul{
         display: none;
     }
     .conteudo_dashboard{
-        background-color: #F00;
+        /* background-color: #F00; */
     }
     
 }
