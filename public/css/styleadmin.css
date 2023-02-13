@@ -8,6 +8,9 @@ ul{
     padding: 0;
     margin: 0;
 }
+a{
+    text-decoration: none;
+}
 .container-fluid{
     /* background-color: blueviolet; */
     display: flex;
@@ -40,24 +43,70 @@ ul{
     margin: 5px;
 }
 .topo_sistema{
-    /* background-color: yellowgreen; */
+    background-color: #313A46;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 5px;
+    color: #fff;
+    flex-wrap: wrap;
 }
+.topo_sistema div:last-child{
+    /* background-color: antiquewhite; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.topo_sistema div:last-child form{
+    display: flex;
+    padding: 5px;
+}
+.topo_sistema div:last-child form input{
+    box-shadow: 0 0 0 0;
+    /* border: 0 none; */
+    /* outline: 0; */
+    /* background-color: #acaaaa; */   
+}
+.user_top{
+    /* background-color: aqua; */
+    padding: 5px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.user_top ul{
+    font-size: 15pt;
+    position: absolute;
+    top: 34px;
+    z-index: 100;
+    width: 100%;
+    background-color: #bbbdc1;
+    display: none;
+}
+.user_top .toggle_user_top{
+    /* background-color: aquamarine; */
+    cursor: pointer;
+    padding: 5px;
+}
+
 .logo_topo{
     /* background-color: blue; */
+    padding: 5px;
+    text-align: center;
 }
 #Dashboard{
-    /* background-color:#ccc ; */
+    background-color: #F3F4F7;
     display: flex;
     position: relative;
     top: 0;
 }
 .menu_lateral{
-    /* background-color: aqua; */
+    background-color: #313A46;
 }
+
 .fecha_menu{
     /* background-color: rgb(255, 0, 221); */
     text-align: right;
@@ -84,9 +133,28 @@ ul{
     padding: 5px;
     font-size: 1.2em;
     /* background-color: rgb(62, 104, 14); */
+    color: #afafaf;
+}
+
+.menu_lateral li a i{
+    margin-right: 10pt;
 }
 .menu_lateral ul li a:hover{
-    background-color: antiquewhite;
+    background-color: #2326295b;
+    color: #fff;
+}
+
+.menu_lateral ul li ul{
+    display: none;
+}
+.menu_lateral ul li ul li{
+    text-align: center; 
+}
+.menu_lateral ul li ul li a{
+    color: #acaaaa;
+}
+.menu_lateral ul li:hover ul{
+    display: block;
 }
 .conteudo_dashboard{
     /* background-color: bisque; */
@@ -94,11 +162,20 @@ ul{
     position: relative;
 }
 
-
+footer{
+    background-color: #313A46;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+}
 @media screen and (max-width: 900px){
     #Dashboard{
         display: flex;
         flex-direction: column;
+    }
+    .toggle_user_top span{
+        display: none;
     }
     .menu_lateral{
         text-align: center;

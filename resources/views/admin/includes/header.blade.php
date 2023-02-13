@@ -14,10 +14,33 @@
         <div id="RespostaAjax" class="alert ">resposta ajax</div>
       @if (session()->has('usuario'))
         <header class="topo_sistema">
-            <div class="logo_topo col-2">
-                <figure><img src="" alt="asdfasfd"></figure>
+            <div class="logo_topo col-md-2 col-12">
+                <figure><img src="{{asset('img/logo.png')}}" alt="asdfasfd"></figure>
             </div>
-            <div><i class="fa-solid fa-user"></i> {{session('usuario')}} - <a href="{{route('sair')}}">Sair</a></div>
+            <div class="col-md-10 col-12">
+                <div>
+                    <form action="" method="post">
+                        <label class="form-control"><i class="fa fa-search"></i></label>
+                        <input class="form-control col-8" type="search" name="" id="" placeholder="">
+                        <button class="btn btn-primary">Buscar</button>
+                    </form>
+                </div>
+                <div>
+                    infos
+                </div>
+                <div class="user_top m-0">
+                    <div class="toggle_user_top">
+                        <i class="fa-solid fa-user"></i> <span>{{session('usuario')}}</span> <i class="fa-solid fa-caret-down"></i>
+                    </div>
+                    <ul class="p-0 m-0">
+                        <li>
+                            <a href="">Perfil</a>
+                        </li>    
+                        <li>
+                            <a href="{{route('sair')}}">Sair</a>
+                        </li>
+                    </ul>
+                </div>
         </header>                      
       @endif
         

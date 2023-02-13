@@ -27,12 +27,12 @@ $(document).ready(function (){
                     respostaAjax.removeClass(dangerclass)
                     respostaAjax.addClass(successclass)
                     msg = "usuario logado com sucesso!"
-                    respostaAjax.text(msg).hide(10000);
+                    respostaAjax.text(msg).fadeOut(5000);
                     window.location="/admin";
                 }else{
                     respostaAjax.removeClass(successclass)
                     respostaAjax.addClass(dangerclass)
-                    respostaAjax.text(response).hide(10000);
+                    respostaAjax.text(response).fadeOut(5000);
                 }
                 
                 // alert(response)
@@ -48,5 +48,17 @@ $(document).ready(function (){
     //MENU LATERAL
     $('.fechar_menu').click(function(){
         $('.ul_menu_lateral').toggle();
+    });
+
+   
+    
+    $('.toggle_user_top').mouseover(function(){
+        $('.user_top ul').show();
+    })
+    $('.user_top ul').mouseover(function(){
+        $(this).show();
+    });
+    $('.user_top ul').mouseout(function(){
+        $(this).hide();
     });
 });
