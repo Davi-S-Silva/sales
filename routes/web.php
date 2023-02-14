@@ -18,9 +18,11 @@ Route::get('/', function () {
     return view('home');
 });
 Route::get('/admin', function () {
-    return view('admin/dashboard');
+    return view('admin/telas/entregas');
 })->middleware('isLogged')->name('admin');
-
+Route::get('/admin/entrega/{id?}', function($id = ""){
+    return view('admin/telas/entrega', ['idEntrega'=>$id]);
+})->middleware('isLogged')->name('entrega');
 // Route::get('/logar', function (){
 //     return view('admin/includes/login');
 // })->name('logar');

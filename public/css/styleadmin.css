@@ -112,7 +112,7 @@ a{
     text-align: right;
     padding: 2px 5px;
     font-size: 2em;
-    display: none;
+    display: block;
 }
 .fechar_menu{
     /* background-color: aqua; */
@@ -168,6 +168,60 @@ footer{
     padding: 10px;
     text-align: center;
     color: #fff;
+}
+.container_entregas{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-color: aqua; */
+    padding: 5px;
+}
+.container_entregas header{
+    text-align: center;
+}
+.area_entregas{
+    /* background-color: #afafaf; */
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.area_entregas article{
+    margin: 10px;
+    background-color: rgba(208, 210, 210, 0.202);
+    padding: 5px;
+    /* min-height: 300px; */
+    box-shadow: 5px 5px 5px #ccc;
+}
+.area_entregas article header{
+    display: flex;
+    flex-direction: column;
+}
+.area_entregas article header .placa_entrega{
+    display: flex;
+    justify-content: space-between;
+}
+.area_entregas article header .equipe_entrega{
+    /* background-color: aquamarine; */
+    display: flex;
+    justify-content: space-between;
+}
+.area_entregas .entregas{
+    text-align: center;
+    /* background-color: #313A46; */
+}
+.area_entregas .entregas ul{
+    padding: 0;
+    /* background-color: #313A46; */
+}
+.area_entregas .entregas ul li{
+    display: flex;
+    padding: 2px;
+    /* background-color: #acaaaa; */
+    justify-content: space-between;
+}
+.area_entregas .entregas ul li div, .area_entregas .entregas ul li div span{
+    padding: 2px;
 }
 @media screen and (max-width: 900px){
     #Dashboard{

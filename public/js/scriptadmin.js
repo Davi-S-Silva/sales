@@ -62,3 +62,14 @@ $(document).ready(function (){
         $(this).hide();
     });
 });
+
+// tirar foto
+// https://www.youtube.com/watch?app=desktop&v=CBWkMNo6px8&ab_channel=Jo%C3%A3oTinti
+// var video = document.querySelector('video');
+
+// navigator.mediaDevices.getUserMedia({video:true})
+// .then(stream => {
+//     video.srcObject= stream;
+//     video.play;
+// })
+// .catch();
