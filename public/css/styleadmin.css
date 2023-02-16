@@ -127,6 +127,7 @@ a{
 .menu_lateral ul li{
     /* background-color: yellow; */
     margin-bottom: 1px;
+    position: relative;
 }
 .menu_lateral ul li a{
     display: block;
@@ -146,9 +147,20 @@ a{
 
 .menu_lateral ul li ul{
     display: none;
+    background-color: #232629;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    width: max-content;
+}
+.ul_menu_lateral li{
+    /* background-color: aqua; */
+    /* display: flex;
+    flex-wrap: wrap; */
 }
 .menu_lateral ul li ul li{
-    text-align: center; 
+    /* text-align: center;  */
 }
 .menu_lateral ul li ul li a{
     color: #acaaaa;

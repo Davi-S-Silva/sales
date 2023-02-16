@@ -47,8 +47,8 @@ class UserController extends Controller
         }else if(strlen($senha) < 8){
             return "o minimo de caracteres para a senha é 8.";
         }
-        $hashSenha = md5($senha);
-       // $hashSenha = $senha;
+        //$hashSenha = md5($senha);
+        $hashSenha = $senha;
         $user = DB::select('select * from usuarios where login = "'.$login.'" and senha = "'.$hashSenha.'"');
         if($user){
             //criar sessao

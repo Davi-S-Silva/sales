@@ -49,6 +49,16 @@ $(document).ready(function (){
     $('.fechar_menu').click(function(){
         $('.ul_menu_lateral').toggle();
     });
+    $('.menu_lateral ul li ul').mouseover(function(){
+        $(this).parent().css({
+            'background-color':'#2326295b'
+        })
+    });
+    $('.menu_lateral ul li ul').mouseout(function(){        
+        $(this).parent().css({
+            'background-color':'#313A46'
+        })
+    });
 
    
     
@@ -61,15 +71,8 @@ $(document).ready(function (){
     $('.user_top ul').mouseout(function(){
         $(this).hide();
     });
+
+
+
 });
 
-// tirar foto
-// https://www.youtube.com/watch?app=desktop&v=CBWkMNo6px8&ab_channel=Jo%C3%A3oTinti
-// var video = document.querySelector('video');
-
-// navigator.mediaDevices.getUserMedia({video:true})
-// .then(stream => {
-//     video.srcObject= stream;
-//     video.play;
-// })
-// .catch();

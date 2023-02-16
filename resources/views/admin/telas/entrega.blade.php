@@ -1,11 +1,36 @@
+
 @extends('admin/dashboard')
 
+<video autoplay></video>
+<canvas></canvas>
+<button>Tirar foto</button>
+<!-- <script src="./script.js"></script> -->
+
+<form action="" method="post" name="loadFoto">        
+    @csrf
+    <h1>Formulário</h1>
+    <label>Foto: </label>
+    <input type="file" name="imagem" id="imagem"><br><br>
+    <input type="text" name="AS">
+    <button class="btn-upload-imagem">Enviar</button>
+
+    <div id="preview">preview</div>
+</form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+
+    <script src="{{asset('js/custom.js')}}"></script>
+
 @section('entrega')
-    @if($idEntrega)
-        {{$idEntrega}}
+    @if(@$idEntrega)
+        {{@$idEntrega}}
         vamos consultar no banco e inserir todas as informacoes necessarias aqui
     @else
-        <form action="" method="post" enctype="multipart/form-data">
+
+    
+
+        <form action="" method="post" name="InsertAS" enctype="multipart/form-data">
             <fieldset>
                 <header>Formulario de entregas</header>
                 <div>

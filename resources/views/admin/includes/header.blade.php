@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('/fontawesome/css/all.css')}}">
     <link rel="stylesheet" href="{{asset('/css/styleadmin.css')}}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css">
     <title>Sales Almeida Transportes</title>
 </head>
 <body>
@@ -15,7 +17,7 @@
       @if (session()->has('usuario'))
         <header class="topo_sistema">
             <div class="logo_topo col-md-2 col-12">
-                <figure><img src="{{asset('img/logo.png')}}" alt="asdfasfd"></figure>
+                <figure><a href="{{route('admin')}}"><img src="{{asset('img/logo.png')}}" alt="asdfasfd"></a></figure>
             </div>
             <div class="col-md-10 col-12">
                 <div>
