@@ -49,4 +49,8 @@ Route::controller(UserController::class)->group(function(){
     Route::post('/logar', 'store');
     Route::get('/logar', 'index');
     Route::get('/sair','logout')->name('sair');
+    Route::get('/admin/Usuarios','showAll')->middleware('isLogged')->name('allUsers');
+    Route::get('/admin/editarUsuario/{id?}','edit')->middleware('isLogged')->name('editUser');
 });
+//throw new Exception("Error Processing Request", 1);
+

@@ -38,8 +38,8 @@ $(document).ready(function (){
                 
                 // alert(response)
             },
-            error: function(){
-                alert('erro!')
+            error: function(response){
+                alert('erro!'+response)
             }
         });     
         return false;

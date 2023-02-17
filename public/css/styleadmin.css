@@ -98,7 +98,7 @@ a{
     text-align: center;
 }
 #Dashboard{
-    background-color: #F3F4F7;
+    background-color: #fff;
     display: flex;
     position: relative;
     top: 0;
@@ -172,6 +172,10 @@ a{
     /* background-color: bisque; */
     /* width: 100%; */
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 footer{
@@ -235,6 +239,26 @@ footer{
 .area_entregas .entregas ul li div, .area_entregas .entregas ul li div span{
     padding: 2px;
 }
+
+/* ===========TELA USUARIOS========== */
+.ul_usuarios{
+    background-color: aqua;
+    padding: 2px;
+    margin: 0;
+}
+.ul_usuarios li{
+    background-color: antiquewhite;
+    padding: 0;
+    margin: 2px;
+}
+.ul_usuarios li div{
+    background-color: yellowgreen;
+    padding: 0;
+}
+.ul_usuarios li div ul, .ul_usuarios li div ul li{
+    padding: 0;
+}
+/* ===========TELA USUARIOS========== */
 @media screen and (max-width: 900px){
     #Dashboard{
         display: flex;

@@ -7,6 +7,9 @@
             <div class="conteudo_dashboard col-md-10 col-12">                
                 @yield('entrega')
                 @yield('entregas')
+                @yield('usuarios')
+                @yield('editUsuario')
+                @yield('error')
             </div>
         </div>
 @endsection

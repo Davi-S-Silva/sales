@@ -17,8 +17,8 @@ class UserAdminSeeder extends Seeder
     {
         DB::table('usuarios')->insert([
             'id'=>0,
-            'nome' => 'marcilene',
-            'login' =>'marcilenecelestino',
+            'nome' => 'davi santos',
+            'login' =>'davisantos',
             'senha' => 'b8321ffcd5aec164bd2aa1d8a17ac87e',
             'nivel_acesso'=>0,
             'situacao_acesso'=>1,
