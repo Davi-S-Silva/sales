@@ -13,6 +13,7 @@ $(document).ready(function (){
     var respostaAjax = $("#RespostaAjax");
     respostaAjax.hide();
     //FAZER LOGIN
+  
     $('#Form_Login_Admin').submit( function(){   
         $.ajax({
             type: "post",
@@ -37,8 +38,8 @@ $(document).ready(function (){
                 
                 // alert(response)
             },
-            error: function(response){
-                alert(response)
+            error: function(){
+                alert('erro!')
             }
         });     
         return false;

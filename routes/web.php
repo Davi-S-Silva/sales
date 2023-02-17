@@ -1,18 +1,9 @@
 <?php
+date_default_timezone_set('America/Recife');
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 
 
@@ -39,7 +30,7 @@ Route::post('/admin/upload', function(){
     $imagem = base64_decode($imagem);
     $imagem_nome = $AS. '.jpg';
     file_put_contents('c:/xampp/htdocs/sales/public/img/' . $imagem_nome, $imagem);
-    return 'ok. imagem salva';
+    return 'ok. imagem '.$imagem_nome.' salva com sucesso!';
 
 })->middleware('isLogged');
 
