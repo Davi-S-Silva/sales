@@ -75,5 +75,30 @@ $(document).ready(function (){
 
 
 
+
+
+    // /usuarioApi teste de api
+    $('.btn_test').click( function(){   
+        $.ajax({
+            type: "get",
+            data: {
+                'id':2
+            },
+            url: '/api/usuarioApi',
+            success: function(response){               
+                var usuario = JSON.parse(response)
+                console.log(response)    
+                for (let index = 0; index < usuario.length; index++) {
+                    const element = usuario[index];
+                    console.log(element)                    
+                }
+                // alert(usuario.nome)
+            },
+            error: function(){
+                alert('erro no teste!')
+            }
+        });     
+    });
+
 });
 

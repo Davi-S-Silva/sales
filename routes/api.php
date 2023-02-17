@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/usuarioApi', function (Request $request) {
+    $users = new UserController();
+    $usuarios = $users->getAll();
+   
+    // echo '<pre>';print_r(json_encode($usuarios));echo '</pre>';
+    return json_encode($usuarios);
 });
+// Route::middleware('auth:sanctum')->get('/usuarioApi', function (Request $request) {
+//     return $request->user();
+// });

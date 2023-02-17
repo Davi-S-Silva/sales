@@ -119,10 +119,18 @@ class UserController extends Controller
     public function showAll(){
         try{
             //$users = DB::table('usuarios')->count();
-            $usuarios = DB::table('usuarios')->get();
+            return $usuarios = DB::table('usuarios')->get();
          //    echo '<pre>';print_r($usuarios);echo '</pre>';
-         return view('admin.telas.usuarios',['users'=>$usuarios]);
-         throw new \Exception('Erro showAll');
+        return view('admin.telas.usuarios',['users'=>$usuarios]);
+        // throw new \Exception('Erro showAll');
+        }catch(Exception $e ){
+           echo  $e->getmessage();
+        }
+    }
+    public function getAll(){
+        try{
+            //$users = DB::table('usuarios')->count();
+            return $usuarios = DB::table('usuarios')->get();
         }catch(Exception $e ){
            echo  $e->getmessage();
         }

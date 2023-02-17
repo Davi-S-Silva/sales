@@ -1,46 +1,32 @@
 // tirar foto
 // https://www.youtube.com/watch?app=desktop&v=CBWkMNo6px8&ab_channel=Jo%C3%A3oTinti
-var video = document.querySelector('video');
 // alert('oi')
-navigator.mediaDevices.getUserMedia({video:true})
+const video = document.querySelector('#video');
+const specs = {video:{width:1080, height:1000, aspectRatio:21/9}}
+navigator.mediaDevices.getUserMedia(specs)
 .then(stream => {
     video.srcObject= stream;
-    video.play;
+    
 })
 .catch();
 
 document.querySelector('button').addEventListener('click', () => {
     var canvas = document.querySelector('canvas');
-    canvas.height = video.videoHeight;
-    canvas.width = video.videoWidth;
+    canvas.height = specs.video.height;
+    canvas.width = specs.video.width;
     var context = canvas.getContext('2d');
     context.drawImage(video, 0, 0);
     var link = document.createElement('a');
     link.download = 'foto.png';
     link.href = canvas.toDataURL();
     link.textContent = 'Clique para baixar a imagem';
-    document.body.appendChild(link);
-
-        //testando 
-        $('#imagem').value(context);
-        $('#imagem').on('change', function () {
-
-            // FileReader para ler de forma assincrona o conteúdo dos arquivos
-            var reader = new FileReader();
-
-            // onload - Execute após ler o conteúdo
-            reader.onload = function (e) {
-                redimensionar.croppie('bind', {
-                    // Recuperar a imagem base64
-                    url: e.target.result
-                });
-            }
-
-            // O método readAsDataURL é usado para ler o conteúdo do tipo Blob ou File
-            reader.readAsDataURL(this.files[0]);
-        });
+    document.body.appendChild(link);    
+    console.log(link.href)   
+    // link.click()
 
     
+
+
 });
 // alert('ola');
 // Carregar o espaço para o preview da imagem

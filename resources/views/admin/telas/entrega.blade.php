@@ -1,7 +1,7 @@
 
 @extends('admin/dashboard')
 
-<video autoplay></video>
+<video autoplay id="video"></video>
 <canvas></canvas>
 <button>Tirar foto</button>
 <!-- <script src="./script.js"></script> -->
@@ -20,7 +20,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
     
-    <script src="http://192.168.1.108/sales/public/js/custom.js"></script>
+    <!-- <script src="http://192.168.1.108/sales/public/js/custom.js"></script> -->
     <script src="{{asset('js/custom.js')}}"></script>
 
 @section('entrega')
@@ -95,4 +95,8 @@
             </fieldset>
         </form>
     @endif
+
+
+<button class="btn_test">teste api</button>
+
 @endsection
