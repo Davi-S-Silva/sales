@@ -10,8 +10,7 @@
         </li>
         <li><a href=""><i class="fa-solid fa-clipboard-list"></i> Cadastros necessários</a>
             <ul>
-                <li><a href=""><i class="fa-solid fa-person-dots-from-line"></i> Motorista</a></li>
-                <li><a href=""><i class="fa-solid fa-dolly"></i> Ajudante</a></li>
+                <li><a href=""><i class="fa-solid fa-user"></i> Colaborador</a></li>
                 <li><a href=""><i class="fa-solid fa-truck-front"></i> Veiculo</a></li>
                 <!-- <li>Motorista</li> -->
             </ul>

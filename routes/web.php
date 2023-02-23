@@ -3,6 +3,7 @@ date_default_timezone_set('America/Recife');
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AutorizacaoServico;
 use Illuminate\Http\Request;
 
 
@@ -54,3 +55,10 @@ Route::controller(UserController::class)->group(function(){
 });
 //throw new Exception("Error Processing Request", 1);
 
+try{
+Route::controller(AutorizacaoServico::class)->group(function(){
+    Route::post('/admin/entrega', 'create')->middleware('isLogged')->name('insertAS');
+});
+}catch(Exception $e){
+    return $e->Message();
+}

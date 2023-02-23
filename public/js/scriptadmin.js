@@ -100,5 +100,21 @@ $(document).ready(function (){
         });     
     });
 
+
+
+
+    // ADD AJUDANTE
+    $('#Add_Ajudante').click(function(){
+        var html = $('#Div_Add_Ajudante').html()
+        $('#Div_Add_Ajudante').append('<select name="Ajudantes[]" id="Ajudantes" required>'
+        +'<option value="">Selecione o Ajudante</option>'
+        +'<option value="1">1</option>'
+        +'<option value="2">2</option>'
+        +'<option value="3">3</option>'
+        +'<option value="4">4</option>'
+        +'<option value="5">5</option>'
+    +'</select>')
+        return false
+    });
 });
 

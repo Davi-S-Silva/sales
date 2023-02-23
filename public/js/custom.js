@@ -2,7 +2,7 @@
 // https://www.youtube.com/watch?app=desktop&v=CBWkMNo6px8&ab_channel=Jo%C3%A3oTinti
 // alert('oi')
 const video = document.querySelector('#video');
-const specs = {video:{width:1080, height:1000, aspectRatio:21/9}}
+const specs = {video:{width:1080, aspectRatio:21/9}}
 navigator.mediaDevices.getUserMedia(specs)
 .then(stream => {
     video.srcObject= stream;
