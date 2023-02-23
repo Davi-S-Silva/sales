@@ -105,16 +105,28 @@ $(document).ready(function (){
 
     // ADD AJUDANTE
     $('#Add_Ajudante').click(function(){
-        var html = $('#Div_Add_Ajudante').html()
-        $('#Div_Add_Ajudante').append('<select name="Ajudantes[]" id="Ajudantes" required>'
+        $('#Div_Add_Ajudante').append('<div><select name="Ajudantes[]" class="ajudantes" required>'
         +'<option value="">Selecione o Ajudante</option>'
         +'<option value="1">1</option>'
         +'<option value="2">2</option>'
         +'<option value="3">3</option>'
         +'<option value="4">4</option>'
         +'<option value="5">5</option>'
-    +'</select>')
+        +'</select><a href="" class="fecha_select_ajudante">X</a></div>')
+        
         return false
+    });
+    $('.fecha_select_ajudante').click(function(){        
+        $(this).siblings('select').remove()
+        $(this).remove()
+        $('#Area_Ajudantes').append('<label>Sem Ajudante? </label><input type="checkbox" name="SemAjudante"/>')
+        return false
+    })
+    //delegacao de eventos
+    $('#Div_Add_Ajudante').on('click','a',function(){
+        $(this).siblings('select').remove()
+        $(this).remove()
+        return false;
     });
 });
 

@@ -37,9 +37,10 @@ class AutorizacaoServico extends Controller
 
         // $AjudanteUmAS       =   htmlspecialchars($request['AjudanteUmAS']);
         $Ajudantes       =   $request['Ajudantes'];
-        
+        $SemAjudante     =   $request['SemAjudante'];
         $NotasAS            =   $_FILES['Notas'];
         
+
         // echo '<pre>';print_r($Ajudantes);echo '</pre>';
         // return false;
 
@@ -62,15 +63,20 @@ class AutorizacaoServico extends Controller
         if($MotoristaEntregaAS==""){
             return "Escolha o motorista da entrega!";
         }
-        if(count($Ajudantes)==0){
+        if(isset($Ajudantes)){
             // echo count($Ajudantes);
-            return "Escolha o Ajudante da Entrega!";
+            if(count($Ajudantes)==0){
+                return "Escolha o Ajudante da Entrega!";
+            }
         }
         if($DestinoAS==""){
             return "Insira o Destino da Entrega!";
         }
-        if(count($NotasAS['name'])==0){
-            return "Escolha a foto das notas da AS!";
+        if(isset($NotasAS['name'])){
+            if(count($NotasAS['name'])==0){
+                return "Escolha a foto das notas da AS!";
+
+            }
         }
         // echo $DataAS;
         // return $request;
@@ -82,8 +88,11 @@ class AutorizacaoServico extends Controller
             $entrega = new Entrega();
             if($entrega->create($MotoristaEntregaAS, $VeiculoAS)){
                 $ajudante = new AjudanteController();
-                foreach ($Ajudantes as $ajud) {
-                    $ajudante->create($entrega->getLastId(), $ajud);
+                if(isset($Ajudantes)){
+                    foreach ($Ajudantes as $ajud) {
+                        $ajudante->create($entrega->getLastId(), $ajud);
+                    }
+                    return true;
                 }
             }else{
                 return false;

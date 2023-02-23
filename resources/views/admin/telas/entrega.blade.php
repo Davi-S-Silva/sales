@@ -75,8 +75,8 @@
                         <option value="5">5</option>
                     </select>
                 </div>
-                <div>
-                    <label for="">Ajudante</label>
+                <div id="Area_Ajudantes">
+                    <label for="">Ajudante: </label>
                     <select name="Ajudantes[]" id="Ajudantes" required>
                         <option value="">Selecione o 1º Ajudante</option>
                         <option value="1">1</option>
@@ -85,6 +85,7 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
+                    <a href="" class="fecha_select_ajudante">X</a>
                 </div>                
                 <div id="Div_Add_Ajudante">                    
                 </div>                
@@ -106,7 +107,7 @@
                     <input type="file" name="Notas[]" id="" multiple required>
                     {{-- <video autoplay class="video"></video> --}}
                 </div>
-                <button class="btn btn-primary">Inserir</button>
+                <button class="btn btn-primary" name="InsertAS">Inserir</button>
             </fieldset>
         </form>
     @endif
