@@ -23,11 +23,8 @@ document.querySelector('button').addEventListener('click', () => {
     document.body.appendChild(link);    
     console.log(link.href)   
     // link.click()
-
-    
-
-
 });
+
 // alert('ola');
 // Carregar o espaço para o preview da imagem
 var redimensionar = $('#preview').croppie({

@@ -24,7 +24,7 @@ class Entrega extends Controller
     public function create($motorista, $veiculo)
     {
         $insertEntrega = DB::insert('insert into entrega (id, id_veiculo, id_motorista, created_at, updated_at) values (?, ?, ?, ?, ?)', 
-                                        [0, $veiculo, $motorista, date('Y-m-d H:i:s'), date('Y-m-d H:i:s')]);
+                                        [$this->newId(), $veiculo, $motorista, date('Y-m-d H:i:s'), date('Y-m-d H:i:s')]);
         if($insertEntrega){
             return true;
         }

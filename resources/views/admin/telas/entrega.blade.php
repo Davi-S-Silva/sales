@@ -86,6 +86,7 @@
                         <option value="5">5</option>
                     </select>
                     <a href="" class="fecha_select_ajudante">X</a>
+                    <div class="area_sem_ajudante"></div>
                 </div>                
                 <div id="Div_Add_Ajudante">                    
                 </div>                

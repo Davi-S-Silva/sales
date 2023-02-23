@@ -7,6 +7,8 @@ use App\Http\Controllers\AutorizacaoServico;
 use Illuminate\Http\Request;
 
 
+require_once('../config.php');
+
 
 Route::get('/', function () {
     return view('home');
