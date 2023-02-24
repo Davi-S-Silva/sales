@@ -9,6 +9,7 @@ use App\Http\Controllers\Entrega;
 use App\Http\Controllers\AjudanteController;
 
 use thiagoalessio\TesseractOCR\TesseractOCR;
+use Exception;
 
 class AutorizacaoServico extends Controller
 {
@@ -65,6 +66,9 @@ class AutorizacaoServico extends Controller
             // echo $NotasAS['name'][$i];
             // echo ' = '.$NotasAS['tmp_name'][$i].'<br />';
             // echo $NotasAS['tmp_name'][$i].$NotasAS['name'][$i];
+            if(file_exists(IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1])){
+                return 'Este arquivo ja existe. Reveja o numero da AS!';
+            }
             if(move_uploaded_file($NotasAS['tmp_name'][$i],IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1])){
                 // echo 'up com sucesso!';
                 $nomeImg = $NumeroAS.'_'.$i.'.'.$formato[1];
@@ -77,7 +81,7 @@ class AutorizacaoServico extends Controller
             }
 
         }
-       return 'lido';
+    //    return 'temporariamente encerrado - lido';
       
 
         if($NumeroAS==""){
@@ -99,6 +103,14 @@ class AutorizacaoServico extends Controller
         if($MotoristaEntregaAS==""){
             return "Escolha o motorista da entrega!";
         }
+
+        //verificar se o motorista ja esta com o caminhao em alguma entrega 
+        //pra nao sair motorista em dois caminhoes ou dois caminhoes em um motorista
+
+
+        
+
+
         if(isset($Ajudantes)){
             // echo count($Ajudantes);
             if(count($Ajudantes)==0){
@@ -121,29 +133,64 @@ class AutorizacaoServico extends Controller
         // echo $DataAS;
         // return $request;
         // return $dados;
+        $dataHoje = date('Y-m-d');
         $insertAS = DB::insert('insert into autorizacao_servico (id, Num, Data_as, Motorista_AS, Destino, Valor_Avista, Valor_Boleto, Valor_Bonificacao, Peso_Total, Quantidade_Notas, Status_AS, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-        [$this->newId() ,$NumeroAS, $DataAS,$MotoristaAS,$DestinoAS, 0.00,0.00,0.00,0.00,0,1,'2023/02/25','2023/02/25']);
+        [$this->newId() ,$NumeroAS, $DataAS,$MotoristaAS,$DestinoAS, 0.00,0.00,0.00,0.00,0,1,$dataHoje,$dataHoje]);
 
         if($insertAS){
              echo 'AS de número '.$NumeroAS.' inserida com sucesso!<br />';//inserir no arquivo de log futuramente
             $entrega = new Entrega();
-            if($entrega->create($MotoristaEntregaAS, $VeiculoAS)){
-                 echo 'Entrega de número '.$entrega->getLastId().' inserida com sucesso!<br />';//inserir no arquivo de log futuramente
-                $ajudante = new AjudanteController();
-                if(isset($Ajudantes)){
-                    foreach ($Ajudantes as $ajud) {
-                        $ajudante->create($entrega->getLastId(), $ajud);
-                       echo 'Ajudante '.$ajud.' inserido com sucesso!<br />';//inserir no arquivo de log futuramente
-                    }
-                    return true;
-                }else{
-                    echo 'Entrega de número '.$entrega->getLastId().' inserida sem ajudante';
-                    return true;
-                    // echo 'Ajudante: '.$ajud.'<br />';//inserir no arquivo de log futuramente
-                }
+            if($entrega->getLastId()==0){
+                //inserir na tabela AS_entrega
+
+
+
+                if($entrega->create($MotoristaEntregaAS, $VeiculoAS)){
+                    echo 'Entrega de número '.$entrega->getLastId().' inserida com sucesso!<br />';//inserir no arquivo de log futuramente
+                   $ajudante = new AjudanteController();
+                   if(isset($Ajudantes)){
+                       foreach ($Ajudantes as $ajud) {
+                           $ajudante->create($entrega->getLastId(), $ajud);
+                          echo 'Ajudante '.$ajud.' inserido com sucesso!<br />';//inserir no arquivo de log futuramente
+                       }
+                       return true;
+                   }else{
+                       echo 'Entrega de número '.$entrega->getLastId().' inserida sem ajudante';
+                       return true;
+                       // echo 'Ajudante: '.$ajud.'<br />';//inserir no arquivo de log futuramente
+                   }
+               }else{
+                   return false;
+               }
             }else{
-                return false;
+                if($entrega->getMesmaEntrega($VeiculoAS,$MotoristaEntregaAS,$dataHoje)==0){
+                    if($entrega->create($MotoristaEntregaAS, $VeiculoAS)){
+                        echo 'Entrega de número '.$entrega->getLastId().' inserida com sucesso!<br />';//inserir no arquivo de log futuramente
+
+                        //inserir na tabela AS_entrega
+
+                        //inserir ajudante
+                       $ajudante = new AjudanteController();
+                       if(isset($Ajudantes)){
+                           foreach ($Ajudantes as $ajud) {
+                               $ajudante->create($entrega->getLastId(), $ajud);
+                              echo 'Ajudante '.$ajud.' inserido com sucesso!<br />';//inserir no arquivo de log futuramente
+                           }
+                           return true;
+                       }else{
+                           echo 'Entrega de número '.$entrega->getLastId().' inserida sem ajudante';
+                           return true;
+                           // echo 'Ajudante: '.$ajud.'<br />';//inserir no arquivo de log futuramente
+                       }
+                   }else{
+                       return false;
+                   }
+                }else{
+                    //inserir na tabela AS_entrega
+                    echo 'vamos inserir na tabema AS_entrega pois o motorista ja esta em uma entrega vamos adicionar essa AS nele';
+                }
             }
+            // return;            
         }else{
             return false;
         }
@@ -204,20 +251,38 @@ class AutorizacaoServico extends Controller
     {
         //
     }
+
+    public function getAll(){
+        return $TodasAS = DB::select('select * from autorizacao_servico');
+    }
+
     public function getLastId(){
         $lastId = DB::select('select max(id) from autorizacao_servico as max');
         $id_AS = (array) $lastId[0];
         return $id_AS['max(id)'];
     }
+    public function getCount(){
+        $count = DB::select('select count(id) from autorizacao_servico');
+        $countArray = (array)$count[0];
+        return $countArray['count(id)'];
+    }
     public function newId(){
         return $this->getLastId()+1;
     }
     public function lerImgNotas($nota, $AS, $nomeImg){
-        $texto = (new TesseractOCR($nota))->run();
-        $div = getenv('APP_URL').'/img/img_notas_as/'.$nomeImg;
-        echo '<img src="'.$div.'"/>';
-        $this->mostraNotas($texto, $AS);
-        echo '<hr />';
+        try{            
+            $texto = (new TesseractOCR($nota))->run();
+            if(!$texto){
+                throw new Exception("Imagem invalida ou ilegível. Selecione outra imagem!"); 
+            }
+            $div = getenv('APP_URL').'/img/img_notas_as/'.$nomeImg;
+            echo '<img src="'.$div.'"/>';
+            $this->mostraNotas($texto, $AS);
+            echo '<hr />';
+        }catch(Exception $e){
+            print ($e->getMessage());
+            exit;
+        }
     }
 
 
@@ -250,11 +315,11 @@ class AutorizacaoServico extends Controller
             for($i=0; $i<count($limpo);$i++){
                 if(!empty($limpo[$i])){
                     if($this->contem_letra($limpo[$i])){
-                        echo 'Imagem Incorreta. nao corresponde a notas da AS!';
+                        echo 'Imagem Incorreta. Contem letras na nota. Não corresponde a notas da AS!';
                         return;
                     }else{
                         if(strlen($limpo[$i])<7){
-                            echo 'Imagem Incorreta. nao corresponde a notas da AS!';
+                            echo 'Imagem Incorreta. a quantidade de digitos do numero não corresponde a nota da AS!';
                             return ;
                         }else{
                             echo 'nota: '.$limpo[$i]."<br />";
@@ -294,11 +359,11 @@ class AutorizacaoServico extends Controller
         for($i=0; $i<count($limpo);$i++){
             if(!empty($limpo[$i])){
                 if($this->contem_letra($limpo[$i])){
-                    echo 'Imagem Incorreta. nao corresponde a notas da AS!';
+                    echo 'Imagem Incorreta. Não corresponde a notas da AS!';
                     return;
                 }else{
                     if(strlen($limpo[$i])<7){
-                        echo 'Imagem Incorreta. nao corresponde a notas da AS!';
+                        echo 'Imagem Incorreta. a quantidade de digitos do numero não corresponde a nota da AS!';
                         return ;
                     }else{
                         echo 'nota: '.$limpo[$i]."<br />";

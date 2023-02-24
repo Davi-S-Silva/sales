@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('id_veiculo');
             $table->integer('id_motorista');
+            $table->date('data');
             $table->timestamps();
         });
     }

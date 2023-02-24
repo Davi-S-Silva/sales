@@ -97,5 +97,12 @@
 
 
 
+ <div>
+    <header>sobre os modulos e funcionalidades</header>
+    <h1>AS</h1>
+    <p>Ao inserir a AS vai ser solicitado fotos da parte da nota que compoe a As ou pode digitar manualmente cada nota marcando a opçao "Digitar manualmente" no formulario!</p>
+ </div>
+
+
 
  

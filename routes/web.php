@@ -7,7 +7,7 @@ use App\Http\Controllers\AutorizacaoServico;
 use Illuminate\Http\Request;
 
 
-require_once('../config.php');
+require_once('c:/xampp/htdocs/sales/config.php');
 
 
 Route::get('/', function () {
@@ -16,9 +16,13 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('admin/telas/entregas');
 })->middleware('isLogged')->name('admin');
+
+
 Route::get('/admin/entrega/{id?}', function($id = ""){
     return view('admin/telas/entrega', ['idEntrega'=>$id]);
 })->middleware('isLogged')->name('entrega');
+
+
 Route::post('/admin/entrega', function(){
     return view('admin/telas/entrega');
 })->middleware('isLogged')->name('entrega');
@@ -57,10 +61,10 @@ Route::controller(UserController::class)->group(function(){
 });
 //throw new Exception("Error Processing Request", 1);
 
-try{
+Route::get('/admin/consulta-entregas', function(){
+    return view('admin/telas/entregas');
+})->middleware('isLogged')->name('entregas');
+
 Route::controller(AutorizacaoServico::class)->group(function(){
     Route::post('/admin/entrega', 'create')->middleware('isLogged')->name('insertAS');
 });
-}catch(Exception $e){
-    return $e->Message();
-}

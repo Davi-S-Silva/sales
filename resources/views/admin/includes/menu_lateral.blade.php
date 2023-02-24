@@ -18,7 +18,7 @@
         <li><a href="{{route('admin')}}"> <i class="fa fa-truck"></i> Entregas</a>
             <ul>
                 <li><a href="{{route('entrega')}}">Inserir Entrega</a></li>
-                <li><a href="">Consultar Entrega</a></li>
+                <li><a href="{{route('entregas')}}">Consultar Entrega</a></li>
             </ul>
         </li>  
         <li>

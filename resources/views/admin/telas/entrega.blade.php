@@ -28,6 +28,8 @@
         {{@$idEntrega}}
         vamos consultar no banco e inserir todas as informacoes necessarias aqui
     @else 
+
+    <h1>validar os campos no javascript e no php</h1>
         <form action="{{route('insertAS')}}" method="post" name="InsertAS" enctype="multipart/form-data">
             <fieldset>
                 @csrf
@@ -104,9 +106,14 @@
 
                 </div> -->
                 <div>
-                    <label for="">Foto notas</label>
+                    <label for="">Notas</label>
                     <input type="file" name="Notas[]" id="" multiple required>
-                    {{-- <video autoplay class="video"></video> --}}
+                    <div>
+                        <label for="">Digitar manualmente </label> <input type="checkbox" name="DigitarNotas" id="">
+                        <br>
+                        <a href="">Add Nota</a>
+                    </div>
+                    <!-- {{-- <video autoplay class="video"></video> --}} -->
                 </div>
                 <button class="btn btn-primary" name="InsertAS">Inserir</button>
             </fieldset>
