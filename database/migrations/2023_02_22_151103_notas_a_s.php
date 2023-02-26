@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('notas_as', function (Blueprint $table) {
             $table->id();
             $table->integer('id_as');
-            $table->integer('nota');
+            $table->integer('nota')->unique();
             $table->integer('id_tipo_pagamento');
             $table->decimal('valor', 8, 2);
             $table->integer('status');
-            $table->date('data_conclusao');
+            $table->date('data_conclusao')->nullable();
             $table->timestamps();
         });
     }

@@ -22,5 +22,40 @@ class colaborador extends Seeder
             'situacao_acesso' => 1,
             'created_at'=>date('Y/m/d H:m:i')
         ]);
+        DB::table('colaborador')->insert([
+            'id'=>0,
+            'nome' => 'Ariosmar',
+            'funcao' => 1,
+            'situacao_acesso' => 1,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
+        DB::table('colaborador')->insert([
+            'id'=>0,
+            'nome' => 'Pita',
+            'funcao' => 2,
+            'situacao_acesso' => 1,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
+        DB::table('colaborador')->insert([
+            'id'=>0,
+            'nome' => 'Jeova',
+            'funcao' => 2,
+            'situacao_acesso' => 1,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
+        DB::table('colaborador')->insert([
+            'id'=>0,
+            'nome' => 'Adiel',
+            'funcao' => 1,
+            'situacao_acesso' => 1,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
+        DB::table('colaborador')->insert([
+            'id'=>0,
+            'nome' => 'Joao Victor',
+            'funcao' => 2,
+            'situacao_acesso' => 1,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
     }
 }

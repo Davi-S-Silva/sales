@@ -96,4 +96,8 @@ class AjudanteController extends Controller
     public function newId(){
         return $this->getLastId()+1;
     }
+
+    public function getAjudantesEntrega($id_entrega){
+        return DB::table('ajudantes')->where('id_entrega',$id_entrega)->get();
+    }
 }

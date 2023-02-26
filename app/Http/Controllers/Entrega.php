@@ -3,6 +3,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\AjudanteController;
+use App\Http\Controllers\AutorizacaoServico;
+use App\Http\Controllers\Veiculo;
+use App\Http\Controllers\NotasAS;
+use App\Http\Controllers\ASEntrega;
+use App\Http\Controllers\Colaborador;
 
 class Entrega extends Controller
 {
@@ -23,8 +29,8 @@ class Entrega extends Controller
      */
     public function create($motorista, $veiculo)
     {
-        $insertEntrega = DB::insert('insert into entrega (id, id_veiculo, id_motorista, data, created_at, updated_at) values (?, ?, ?, ?, ?, ?)', 
-                                        [$this->newId(), $veiculo, $motorista, date('Y-m-d'), date('Y-m-d H:i:s'), date('Y-m-d H:i:s')]);
+        $insertEntrega = DB::insert('insert into entrega (id, id_veiculo, id_motorista, id_status, data, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?)', 
+                                        [$this->newId(), $veiculo, $motorista, 1,date('Y-m-d'), date('Y-m-d H:i:s'), date('Y-m-d H:i:s')]);
         if($insertEntrega){
             return true;
         }
@@ -93,7 +99,33 @@ class Entrega extends Controller
     public function newId(){
         return $this->getLastId()+1;
     }
+    public function getAllEntrega($id){
+        $entrega = DB::table('entrega')->where('id',$id)->get()->first();
+        $ASEntrega = (new ASEntrega())->getASEntrega($id);
+        $ajudantes = (new AjudanteController())->getAjudantesEntrega($id);
+        $AutorizacaoServico = new AutorizacaoServico();
+        foreach ($ASEntrega as $AS) {
+            $ASs[] = $AutorizacaoServico->getAS($AS->id_as);
+        }
+        $veiculo = (new Veiculo())->getPlacaById($entrega->id_veiculo);
+        $motorista = (new Colaborador())->getColaborador($entrega->id_motorista);
 
+        foreach ($ASEntrega as $AS) {
+            $NotasAS[] = (new NotasAS())->getNotasForAS($AS->id_as);
+        }
+        $NotasAS;
+
+         echo view('/admin/components/todaEntrega',['notas'=>$NotasAS,
+                                                    'AS'=>$ASs,
+                                                    'motorista'=>$motorista,
+                                                    'ajudantes'=>$ajudantes,
+                                                    'veiculo'=>$veiculo,
+                                                    'entrega'=>$entrega
+                                                    ]);
+    }
+    public function showAllEntrega($id){
+        return $this->getAllEntrega($id);
+    }
     public function getAll(){
         return DB::select('select * from entrega');
     }

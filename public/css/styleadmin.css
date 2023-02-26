@@ -46,7 +46,6 @@ a{
     background-color: #313A46;
     width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 5px;
     color: #fff;
@@ -55,7 +54,7 @@ a{
 .topo_sistema div:last-child{
     /* background-color: antiquewhite; */
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 .topo_sistema div:last-child form{
@@ -105,6 +104,7 @@ a{
 }
 .menu_lateral{
     background-color: #313A46;
+    font-size: 0.8em;
 }
 
 .fecha_menu{
@@ -178,6 +178,34 @@ a{
     flex-direction: column;
 }
 
+/* =================FORM ENTREGA========================== */
+
+form[name="InsertAS"] div{
+    background-color: aqua;
+    margin: 10px;
+    flex-wrap: wrap;
+}
+
+#Area_Ajudantes{
+    display: flex;
+    background-color: #313A46;
+    flex-direction: column;
+    margin: 5px;
+    padding: 0;
+}
+#Area_Ajudantes div{
+    display: flex;
+    flex-direction: row;
+    background-color: antiquewhite;
+    padding: 0;
+}
+#Area_Ajudantes .ajudantes{
+    margin: 0;
+}
+
+/* ======================================================= */
+
+
 footer{
     background-color: #313A46;
     width: 100%;
@@ -198,29 +226,52 @@ footer{
 .area_entregas{
     /* background-color: #afafaf; */
     display: flex;
-    padding: 5px;
+    padding: 2px;
     justify-content: center;
     flex-wrap: wrap;
 }
 .area_entregas article{
-    margin: 10px;
+    margin:10px 5px;
     background-color: rgba(208, 210, 210, 0.202);
     padding: 5px;
     /* min-height: 300px; */
-    box-shadow: 5px 5px 5px #ccc;
+    box-shadow: 0 0 10px #ccc;
 }
 .area_entregas article header{
     display: flex;
     flex-direction: column;
+    border-bottom: 1px solid #ccc;
+    height: max-content;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
 }
 .area_entregas article header .placa_entrega{
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    /* background-color: #313A46; */
 }
 .area_entregas article header .equipe_entrega{
     /* background-color: aquamarine; */
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+}.area_entregas article header .equipe_entrega > div{
+    display: flex;
+    flex-direction: column;
+}
+
+.area_entregas article header .equipe_entrega .ajudantes{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.area_entregas article header .equipe_entrega .ajudantes div{
+    display: flex;
+    flex-direction: column;
+    /* background-color: #313A46; */
+    margin: 0 10px;
 }
 .area_entregas .entregas{
     text-align: center;
@@ -235,6 +286,20 @@ footer{
     padding: 2px;
     /* background-color: #acaaaa; */
     justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+    justify-content: space-between;
+}
+.area_entregas .entregas ul li .notas_entrega{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+.area_entregas .entregas ul li .notas_entrega span{
+    display: flex;
+    flex-direction: column;
+    /* background-color: aqua; */
 }
 .area_entregas .entregas ul li div, .area_entregas .entregas ul li div span{
     padding: 2px;
@@ -258,6 +323,13 @@ footer{
 .ul_usuarios li div ul, .ul_usuarios li div ul li{
     padding: 0;
 }
+
+/* ===========PAGINA=DADOS=ENTREGA=== */
+.toda_entrega{
+    background-color: #313A46;
+    /* margin: 5px; */
+    /* width: 100%; */
+}
 /* ===========TELA USUARIOS========== */
 @media screen and (max-width: 900px){
     #Dashboard{
@@ -272,7 +344,7 @@ footer{
     }
     .menu_lateral ul li a{
         padding: 10px 0;
-        font-size: 2em;
+        font-size: 1em;
     }
     .fecha_menu{
         display: block;

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\Entrega;
 use App\Http\Controllers\AjudanteController;
+use App\Http\Controllers\Veiculo;
+use App\Http\Controllers\NotasAS;
 
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use Exception;
@@ -63,26 +65,24 @@ class AutorizacaoServico extends Controller
         }
         $formato = explode('/',$tipo);
         for($i=0;$i<count($NotasAS['name']);$i++){
-            // echo $NotasAS['name'][$i];
-            // echo ' = '.$NotasAS['tmp_name'][$i].'<br />';
-            // echo $NotasAS['tmp_name'][$i].$NotasAS['name'][$i];
+           
             if(file_exists(IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1])){
                 return 'Este arquivo ja existe. Reveja o numero da AS!';
             }
+            //verificar as notas se ja estao no banco pra nao ir repetida
             if(move_uploaded_file($NotasAS['tmp_name'][$i],IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1])){
-                // echo 'up com sucesso!';
-                $nomeImg = $NumeroAS.'_'.$i.'.'.$formato[1];
-                $localImg = IMG_NOTAS_AS_C.$nomeImg;
-                if(file_exists($localImg)){
-                    // echo 'existe';
-                    // $arquivo = file_get_contents($img);
-                    $this->lerImgNotas($localImg, $NumeroAS,$nomeImg);
-                }
+                $Notas_da_AS = (new NotasAS())->extraiNotas(IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1]);
+                
+                
+                foreach ($Notas_da_AS as $nota) {
+                    if(count((new NotasAS())->verificaNotaBd($nota))!=0){
+                        echo 'essa nota '.$nota.' ja esta cadastrada';
+                        return;
+                    }
+                }                
             }
-
+            
         }
-    //    return 'temporariamente encerrado - lido';
-      
 
         if($NumeroAS==""){
             return "Preencha corretamente o número da AS!";
@@ -106,9 +106,13 @@ class AutorizacaoServico extends Controller
 
         //verificar se o motorista ja esta com o caminhao em alguma entrega 
         //pra nao sair motorista em dois caminhoes ou dois caminhoes em um motorista
+        //no veiculo ja tem motorista?
 
+        $veiculo = new Veiculo();
+        if(!$veiculo->verificaVeiculoOuMotorista($VeiculoAS, $MotoristaEntregaAS)){
+            return ;
+        }
 
-        
 
 
         if(isset($Ajudantes)){
@@ -116,6 +120,9 @@ class AutorizacaoServico extends Controller
             if(count($Ajudantes)==0){
                 return "Escolha o Ajudante da Entrega!";
             }
+
+            //verificar se o ajudante escolhido ja esta em alguma entrega.
+
         }
         // if(isset($SemAjudante)){
         //     echo 'ola sem ajudante?';
@@ -134,28 +141,39 @@ class AutorizacaoServico extends Controller
         // return $request;
         // return $dados;
         $dataHoje = date('Y-m-d');
-        $insertAS = DB::insert('insert into autorizacao_servico (id, Num, Data_as, Motorista_AS, Destino, Valor_Avista, Valor_Boleto, Valor_Bonificacao, Peso_Total, Quantidade_Notas, Status_AS, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-        [$this->newId() ,$NumeroAS, $DataAS,$MotoristaAS,$DestinoAS, 0.00,0.00,0.00,0.00,0,1,$dataHoje,$dataHoje]);
+        try{
+            $insertAS = DB::insert('insert into autorizacao_servico (id, Num, Data_as, Motorista_AS, Destino, Valor_Avista, Valor_Boleto, Valor_Bonificacao, Peso_Total, Quantidade_Notas, Status_AS, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+            [$this->newId() ,$NumeroAS, $DataAS,$MotoristaAS,$DestinoAS, 0.00,0.00,0.00,0.00,0,1,$dataHoje,$dataHoje]);  
+        }catch(Exception $e){
+            if($e->getCode()==23000){
+                return 'AS ja foi cadastrada anteriormente em nosso sistema, verifique novamente o numero da AS digitada!';
+            }
+        }
 
         if($insertAS){
-             echo 'AS de número '.$NumeroAS.' inserida com sucesso!<br />';//inserir no arquivo de log futuramente
-            $entrega = new Entrega();
+            //  echo 'AS de número '.$NumeroAS.' inserida com sucesso!<br />';//inserir no arquivo de log futuramente
+            
+            //INSERIR AS NOTAS NO BANCO
+            $this->inserirNotasAS($tipo,$NotasAS,$NumeroAS);
+            
+             $entrega = new Entrega();
             if($entrega->getLastId()==0){
                 //inserir na tabela AS_entrega
-
+                $ASEntrega = new ASEntrega();
+                $ASEntrega->create($entrega->getLastId(),$this->getLastId());
 
 
                 if($entrega->create($MotoristaEntregaAS, $VeiculoAS)){
-                    echo 'Entrega de número '.$entrega->getLastId().' inserida com sucesso!<br />';//inserir no arquivo de log futuramente
+                    // echo 'Entrega de número '.$entrega->getLastId().' inserida com sucesso!<br />';//inserir no arquivo de log futuramente
                    $ajudante = new AjudanteController();
                    if(isset($Ajudantes)){
                        foreach ($Ajudantes as $ajud) {
                            $ajudante->create($entrega->getLastId(), $ajud);
-                          echo 'Ajudante '.$ajud.' inserido com sucesso!<br />';//inserir no arquivo de log futuramente
+                        //   echo 'Ajudante '.$ajud.' inserido com sucesso!<br />';//inserir no arquivo de log futuramente
                        }
                        return true;
                    }else{
-                       echo 'Entrega de número '.$entrega->getLastId().' inserida sem ajudante';
+                    //    echo '<br />Entrega de número '.$entrega->getLastId().' inserida sem ajudante';
                        return true;
                        // echo 'Ajudante: '.$ajud.'<br />';//inserir no arquivo de log futuramente
                    }
@@ -165,20 +183,28 @@ class AutorizacaoServico extends Controller
             }else{
                 if($entrega->getMesmaEntrega($VeiculoAS,$MotoristaEntregaAS,$dataHoje)==0){
                     if($entrega->create($MotoristaEntregaAS, $VeiculoAS)){
-                        echo 'Entrega de número '.$entrega->getLastId().' inserida com sucesso!<br />';//inserir no arquivo de log futuramente
+                        // echo 'Entrega de número '.$entrega->getLastId().' inserida com sucesso!<br />';//inserir no arquivo de log futuramente
+                        
+                        
+                        //INSERIR AS NOTAS NO BANCO
+                        $this->inserirNotasAS($tipo,$NotasAS,$NumeroAS);
+                        //    return 'temporariamente encerrado - lido';
+
 
                         //inserir na tabela AS_entrega
+                        $ASEntrega = new ASEntrega();
+                        $ASEntrega->create($entrega->getLastId(),$this->getLastId());
 
                         //inserir ajudante
                        $ajudante = new AjudanteController();
                        if(isset($Ajudantes)){
                            foreach ($Ajudantes as $ajud) {
                                $ajudante->create($entrega->getLastId(), $ajud);
-                              echo 'Ajudante '.$ajud.' inserido com sucesso!<br />';//inserir no arquivo de log futuramente
+                            //   echo 'Ajudante '.$ajud.' inserido com sucesso!<br />';//inserir no arquivo de log futuramente
                            }
                            return true;
                        }else{
-                           echo 'Entrega de número '.$entrega->getLastId().' inserida sem ajudante';
+                        //    echo '<br />Entrega de número '.$entrega->getLastId().' inserida sem ajudante';
                            return true;
                            // echo 'Ajudante: '.$ajud.'<br />';//inserir no arquivo de log futuramente
                        }
@@ -187,9 +213,11 @@ class AutorizacaoServico extends Controller
                    }
                 }else{
                     //inserir na tabela AS_entrega
-                    echo 'vamos inserir na tabema AS_entrega pois o motorista ja esta em uma entrega vamos adicionar essa AS nele';
+                    // echo '<br />vamos inserir na tabema AS_entrega pois o motorista ja esta em uma entrega vamos adicionar essa AS nele';
+                    $ASEntrega = new ASEntrega();
+                    $ASEntrega->create($entrega->getLastId(),$this->getLastId());
                 }
-            }
+            }          
             // return;            
         }else{
             return false;
@@ -251,7 +279,9 @@ class AutorizacaoServico extends Controller
     {
         //
     }
-
+    public function getAS($id){
+        return DB::table('autorizacao_servico')->where('id',$id)->get()->first();
+    }
     public function getAll(){
         return $TodasAS = DB::select('select * from autorizacao_servico');
     }
@@ -268,121 +298,23 @@ class AutorizacaoServico extends Controller
     }
     public function newId(){
         return $this->getLastId()+1;
-    }
-    public function lerImgNotas($nota, $AS, $nomeImg){
-        try{            
-            $texto = (new TesseractOCR($nota))->run();
-            if(!$texto){
-                throw new Exception("Imagem invalida ou ilegível. Selecione outra imagem!"); 
-            }
-            $div = getenv('APP_URL').'/img/img_notas_as/'.$nomeImg;
-            echo '<img src="'.$div.'"/>';
-            $this->mostraNotas($texto, $AS);
-            echo '<hr />';
-        }catch(Exception $e){
-            print ($e->getMessage());
-            exit;
-        }
-    }
-
-
-    public function mostraNotas($texto, $AS){
-        $contem = str_contains($texto,'Notas fiscais Relacionadas:');        
-        if($contem){
-            $as = explode('as:',$texto);
-            //echo '<hr />--------notas da AS-------------<br />';
-            // echo "<pre>"; print_r($texto); echo "</pre>";
-            echo "<br />========AS: ";echo $AS;
-            echo "========<br />";
-            $texto2 = explode('Notas fiscais Relacionadas:',$texto);
-
-        
-            $texto3 = substr($texto,-(strlen($texto2[1])),strlen($texto));
-            // Exemplo de Utilização
-            $textolimpo= $this->limpar_texto($texto3);
-        
-            $texto_limpo = str_replace("_",'-', $textolimpo);
-            $texto_limpo2 = str_replace("---",'/', $texto_limpo);
-            $texto_limpo3 = str_replace("-",'/', $texto_limpo2);
-            $texto_limpo4 = str_replace("--",'/', $texto_limpo3);
-            //echo $texto_limpo3;
-        
-            $limpo = explode('/', $texto_limpo4);
-        
-            //echo"<pre>";print_r($limpo);echo "</pre>";
-        
-            $totalNotas = 0;
-            for($i=0; $i<count($limpo);$i++){
-                if(!empty($limpo[$i])){
-                    if($this->contem_letra($limpo[$i])){
-                        echo 'Imagem Incorreta. Contem letras na nota. Não corresponde a notas da AS!';
-                        return;
-                    }else{
-                        if(strlen($limpo[$i])<7){
-                            echo 'Imagem Incorreta. a quantidade de digitos do numero não corresponde a nota da AS!';
-                            return ;
-                        }else{
-                            echo 'nota: '.$limpo[$i]."<br />";
-                            $totalNotas++;
-                        }
-                    }       
-                }
-            }
-            echo "total de notas: ".$totalNotas;
-        }else{
-            // echo 'nao tem';
-            $this->mostraNotas_2($texto, $AS);
-        }
-        
-    }
-    public function mostraNotas_2($texto, $AS){
-    
-        $as = explode('as:',$texto);
-        //echo '<hr />--------notas da AS-------------<br />';
-        // echo "<pre>"; print_r($texto); echo "</pre>";
-        echo "<br />========AS: ";echo $AS;
-        echo "========<br />";
-       
-        $textolimpo= $this->limpar_texto($texto);
-    
-        $texto_limpo = str_replace("_",'-', $textolimpo);
-        $texto_limpo2 = str_replace("---",'/', $texto_limpo);
-        $texto_limpo3 = str_replace("-",'/', $texto_limpo2);
-        $texto_limpo4 = str_replace("--",'/', $texto_limpo3);
-        //echo $texto_limpo3;
-    
-        $limpo = explode('/', $texto_limpo4);
-    
-        //echo"<pre>";print_r($limpo);echo "</pre>";
-    
-        $totalNotas = 0;
-        for($i=0; $i<count($limpo);$i++){
-            if(!empty($limpo[$i])){
-                if($this->contem_letra($limpo[$i])){
-                    echo 'Imagem Incorreta. Não corresponde a notas da AS!';
-                    return;
-                }else{
-                    if(strlen($limpo[$i])<7){
-                        echo 'Imagem Incorreta. a quantidade de digitos do numero não corresponde a nota da AS!';
-                        return ;
-                    }else{
-                        echo 'nota: '.$limpo[$i]."<br />";
-                        $totalNotas++;
-                    }
-                }               
+    }    
+    public function inserirNotasAS($tipo,$NotasAS,$NumeroAS){
+        $formato = explode('/',$tipo);
+        for($i=0;$i<count($NotasAS['name']);$i++){
+            $localImg = IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1];
+            if(file_exists($localImg)){
+                // echo 'existe';
+                // $arquivo = file_get_contents($img);
+                $Notas_da_AS = (new NotasAS())->extraiNotas(IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1]);
+               foreach ($Notas_da_AS as $nota) {
+                    (new NotasAS())->insertNota($this->getLastId(),$nota);
+               }
             }
         }
-        echo "total de notas: ".$totalNotas;
-    }
+    } 
     
-    public function limpar_texto_numero($str){ 
-        return preg_replace("/[^0-9-a-z-A-Z-,-.-:]/", "_", $str); 
+    public function getNotasForAS($id_as,$status=''){
+        return (new NotasAS())->getNotasForAS($id_as,$status);
     }
-    public function limpar_texto($str){ 
-        return preg_replace("/[^0-9-a-z-A-Z]/", "_", $str); 
-    }
-    public function contem_letra($str){
-        return ctype_alpha($str);       
-    }
-      
 }

@@ -22,5 +22,61 @@ class veiculo extends Seeder
             'status_veiculo' => 1,
             'created_at'=>date('Y/m/d H:m:i')
         ]);
+        DB::table('veiculo')->insert([
+            'id'=>0,
+            'placa' => 'KLE5030',
+            'tipo' => 1,
+            'status_veiculo' => 1,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
+        DB::table('veiculo')->insert([
+            'id'=>0,
+            'placa' => 'KGF9J34',
+            'tipo' => 1,
+            'status_veiculo' => 1,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
+        DB::table('veiculo')->insert([
+            'id'=>0,
+            'placa' => 'MOA5880',
+            'tipo' => 1,
+            'status_veiculo' => 1,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
+        DB::table('veiculo')->insert([
+            'id'=>0,
+            'placa' => 'CNR7873',
+            'tipo' => 1,
+            'status_veiculo' => 1,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
+        DB::table('veiculo')->insert([
+            'id'=>0,
+            'placa' => 'KKV5J89',
+            'tipo' => 1,
+            'status_veiculo' => 1,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
+        DB::table('veiculo')->insert([
+            'id'=>0,
+            'placa' => 'KJA2E24',
+            'tipo' => 1,
+            'status_veiculo' => 1,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
+        DB::table('veiculo')->insert([
+            'id'=>0,
+            'placa' => 'KGA2755',
+            'tipo' => 1,
+            'status_veiculo' => 1,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
+        DB::table('veiculo')->insert([
+            'id'=>0,
+            'placa' => 'KHH5H40',
+            'tipo' => 1,
+            'status_veiculo' => 1,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
     }
 }

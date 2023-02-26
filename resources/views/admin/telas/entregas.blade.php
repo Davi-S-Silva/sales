@@ -17,7 +17,7 @@
     <header>
         total de Entregas {{$Entrega->getCount()}}
     </header>
-    <section class="area_entregas">
+    <section class="area_entregas col-12">
         <?php
             $Entrega->showEntregas();
         ?>

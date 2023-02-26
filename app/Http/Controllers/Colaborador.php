@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Colaborador extends Controller
 {
@@ -80,5 +81,13 @@ class Colaborador extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function selectForFunction($funcao){
+        $colaboradores = DB::table('colaborador')->where('funcao',$funcao)->get();
+        return $colaboradores;
+    }
+    public function getColaborador($id){
+        $colaborador = DB::table('colaborador')->where('id',$id)->get()->first();
+        return $colaborador;
     }
 }
