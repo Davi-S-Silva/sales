@@ -105,29 +105,34 @@
                 </div>
                 <div class="d-flex justify-content-around">
                     <div id="Area_Ajudantes" class="col-12">
-                        <div class="col-md-3 col-12">                            
-                            <label for="" class="form-label">Ajudante: </label>  
-                            <select class="ajudantes form-control" name="Ajudantes[]" id="Ajudantes" required>
-                                <option value="">Selecione o 1º Ajudante</option>
-                                @foreach ($ajudantes as $ajudante)
-                                    <option value="{{$ajudante->id}}">{{$ajudante->id}} - {{$ajudante->nome}}</option>
-                                @endforeach
-                            </select>   
-                            <div>
-                                <a href="" class="fecha_select_ajudante">X</a>                             
-                            </div>                 
-                        </div>                                   
+                            <div class="row col-md-3 col-12">    
+                                <div class="div_ajudantes col-12">
+                                    <label for="" class="form-label">Ajudante: </label>  
+                                    <select class="ajudantes form-control" name="Ajudantes[]" id="Ajudantes" required>
+                                        <option value="">Selecione o 1º Ajudante</option>
+                                        @foreach ($ajudantes as $ajudante)
+                                        <option value="{{$ajudante->id}}">{{$ajudante->id}} - {{$ajudante->nome}}</option>
+                                        @endforeach
+                                    </select>   
+                                    <div>
+                                        <a href="" class="fecha_select_ajudante">X</a>                             
+                                    </div>
+                                </div>                        
+                                <a href="" id="Add_Ajudante">Add Ajudante</a>   
+                                <div id="Div_Add_Ajudante" class="col-12"> 
+                                    <!-- <div class="ajudante1 d-none">
+                                        <x-SelectColaborador :ajudante=$ajudantes/>                   
+                                    </div>
+                                    <div class="ajudante-clone d-none">
+                                        <x-SelectColaborador :ajudante=$ajudantes/>                   
+                                    </div> -->
+                                </div>          
+                            </div>                                                                   
                         <div class="area_sem_ajudante"></div>
-                        <div id="Div_Add_Ajudante"> 
-                            {{-- <div class="ajudante1 d-none">
-                                <x-SelectColaborador :ajudante=$ajudantes/>                   
-                            </div>
-                            <div class="ajudante-clone d-none">
-                                <x-SelectColaborador :ajudante=$ajudantes/>                   
-                            </div> --}}
-                        </div>  
-                    </div>       
-                    <a href="" id="Add_Ajudante">Add Ajudante</a>  
+                        
+                    </div> 
+                </div>     
+
                     <div>
                         <label for="" class="form-label">Notas</label>
                         <input class="form-control" type="file" name="Notas[]" id="" multiple required>

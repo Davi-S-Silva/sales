@@ -196,11 +196,35 @@ form[name="InsertAS"] div{
 #Area_Ajudantes div{
     display: flex;
     flex-direction: row;
-    background-color: antiquewhite;
-    padding: 0;
+    background-color: rgb(233, 133, 2);
+    padding: 10px;
+}
+#Area_Ajudantes > div{
+    background-color: #797e85;
 }
 #Area_Ajudantes .ajudantes{
     margin: 0;
+    padding: 0;
+}
+#Area_Ajudantes  > div > div{
+    background-color: yellowgreen;
+    display: flex;
+}
+#Area_Ajudantes .div_ajudantes{
+    background-color: rgb(0, 234, 255);
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+#Area_Ajudantes #Div_Add_Ajudante{
+    background-color: yellow;
+    padding: 0;
+    margin: 0;
+}
+#Area_Ajudantes #Div_Add_Ajudante .ajudantes{
+    margin: 0;
+    width: 100%;
+    padding: 0;
 }
 
 /* ======================================================= */
