@@ -181,23 +181,60 @@ a{
 /* =================FORM ENTREGA========================== */
 
 form[name="InsertAS"] div{
-    background-color: aqua;
+    /* background-color: aqua; */
     margin: 10px;
     flex-wrap: wrap;
 }
 
 #Area_Ajudantes{
     display: flex;
-    background-color: #313A46;
-    flex-direction: column;
-    margin: 5px;
+    /* background-color: #313A46; */
+    /* flex-direction: column; */
+    margin: 0;
     padding: 0;
 }
-#Area_Ajudantes div{
+/* #Area_Ajudantes .div_ajudantes{
+    background-color: rgb(0, 234, 255);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+} */
+/* #Area_Ajudantes .div_ajudantes > div{
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    background-color: antiquewhite;
+    align-items: center;
+} */
+/* #Area_Ajudantes .div_ajudantes > div a{
+    padding: 10px;
+    background-color: #9ba0a6;
+}
+#Area_Ajudantes .div_ajudantes .div_select_ajudantes{
+    display: flex;
+    background-color: burlywood;
+    margin: 0;
+} */
+#Div_Add_Ajudante{
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    /* background-color: antiquewhite; */
+    padding: 0;
+}
+#Div_Add_Ajudante .ajudante1, #Div_Add_Ajudante .ajudante2, #Div_Add_Ajudante .ajudante3{
+    margin: 0;
+}
+#Div_Add_Ajudante .ajudante1 div, #Div_Add_Ajudante .ajudante2 div,v, #Div_Add_Ajudante .ajudante3 div{
+    display: flex;
+    justify-content: space-between;
+}
+/* #Area_Ajudantes div{
     display: flex;
     flex-direction: row;
     background-color: rgb(233, 133, 2);
-    padding: 10px;
+    padding: 0;
 }
 #Area_Ajudantes > div{
     background-color: #797e85;
@@ -210,12 +247,7 @@ form[name="InsertAS"] div{
     background-color: yellowgreen;
     display: flex;
 }
-#Area_Ajudantes .div_ajudantes{
-    background-color: rgb(0, 234, 255);
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
+
 #Area_Ajudantes #Div_Add_Ajudante{
     background-color: yellow;
     padding: 0;
@@ -225,7 +257,7 @@ form[name="InsertAS"] div{
     margin: 0;
     width: 100%;
     padding: 0;
-}
+} */
 
 /* ======================================================= */
 

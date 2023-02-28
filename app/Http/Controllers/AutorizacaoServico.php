@@ -43,46 +43,61 @@ class AutorizacaoServico extends Controller
         // $AjudanteUmAS       =   htmlspecialchars($request['AjudanteUmAS']);
         $Ajudantes       =   $request['Ajudantes'];
         $SemAjudante     =   $request['SemAjudante'];
-        $NotasAS            =   $_FILES['Notas'];
+        $DigitarNotas    =   $request['DigitarNotas'];
+        $textAreaNotas   =   $request['NotasManual'];
+        
+        
+
+        if(empty($DigitarNotas)){
+            $NotasAS            =   $_FILES['Notas'];
+            foreach ($NotasAS['type'] as $tipo) {
+                if($tipo == "image/png" || $tipo == "image/jpg" || $tipo == "image/jpeg"){
+                    // echo $tipo.' => imagem correta <br />'; 
+                }else{
+                    echo $tipo.' => erro de imagen  - formato nao permitido, escolha outra imagem!<br />';
+                    return false;
+                }           
+            }
+            foreach ($NotasAS['size'] as $size) {
+                if($size > 420000){
+                    echo $tipo.' => erro de Tamanho  - Tamanho nao permitido, escolha outra imagem!<br />';
+                    return false;
+                }else{
+                    // echo $tipo.' => Tamanho correto <br />'; 
+                }           
+            }
+            $formato = explode('/',$tipo);
+            for($i=0;$i<count($NotasAS['name']);$i++){
+               
+                if(file_exists(IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1])){
+                    return 'Este arquivo ja existe. Reveja o numero da AS!';
+                }
+                //verificar as notas se ja estao no banco pra nao ir repetida
+                if(move_uploaded_file($NotasAS['tmp_name'][$i],IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1])){
+                    $Notas_da_AS = (new NotasAS())->extraiNotas(IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1]);
+                    
+                    
+                    foreach ($Notas_da_AS as $nota) {
+                        if(count((new NotasAS())->verificaNotaBd($nota))!=0){
+                            echo 'essa nota '.$nota.' ja esta cadastrada';
+                            return;
+                        }
+                    }                
+                }
+                
+            }
+
+            if(isset($NotasAS['name'])){
+                if(count($NotasAS['name'])==0){
+                    return "Escolha a foto das notas da AS!";
+    
+                }
+            }
+        }
 
         // echo '<br /> <br /><hr /><pre>';print_r($NotasAS);echo '</pre>';
         
-        foreach ($NotasAS['type'] as $tipo) {
-            if($tipo == "image/png" || $tipo == "image/jpg" || $tipo == "image/jpeg"){
-                // echo $tipo.' => imagem correta <br />'; 
-            }else{
-                echo $tipo.' => erro de imagen  - formato nao permitido, escolha outra imagem!<br />';
-                return false;
-            }           
-        }
-        foreach ($NotasAS['size'] as $size) {
-            if($size > 420000){
-                echo $tipo.' => erro de Tamanho  - Tamanho nao permitido, escolha outra imagem!<br />';
-                return false;
-            }else{
-                // echo $tipo.' => Tamanho correto <br />'; 
-            }           
-        }
-        $formato = explode('/',$tipo);
-        for($i=0;$i<count($NotasAS['name']);$i++){
-           
-            if(file_exists(IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1])){
-                return 'Este arquivo ja existe. Reveja o numero da AS!';
-            }
-            //verificar as notas se ja estao no banco pra nao ir repetida
-            if(move_uploaded_file($NotasAS['tmp_name'][$i],IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1])){
-                $Notas_da_AS = (new NotasAS())->extraiNotas(IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1]);
-                
-                
-                foreach ($Notas_da_AS as $nota) {
-                    if(count((new NotasAS())->verificaNotaBd($nota))!=0){
-                        echo 'essa nota '.$nota.' ja esta cadastrada';
-                        return;
-                    }
-                }                
-            }
-            
-        }
+        
 
         if($NumeroAS==""){
             return "Preencha corretamente o número da AS!";
@@ -124,6 +139,7 @@ class AutorizacaoServico extends Controller
             //verificar se o ajudante escolhido ja esta em alguma entrega.
 
         }
+
         // if(isset($SemAjudante)){
         //     echo 'ola sem ajudante?';
         //     return false;
@@ -131,12 +147,7 @@ class AutorizacaoServico extends Controller
         if($DestinoAS==""){
             return "Insira o Destino da Entrega!";
         }
-        if(isset($NotasAS['name'])){
-            if(count($NotasAS['name'])==0){
-                return "Escolha a foto das notas da AS!";
-
-            }
-        }
+        
         // echo $DataAS;
         // return $request;
         // return $dados;
@@ -145,8 +156,13 @@ class AutorizacaoServico extends Controller
             $insertAS = DB::insert('insert into autorizacao_servico (id, Num, Data_as, Motorista_AS, Destino, Valor_Avista, Valor_Boleto, Valor_Bonificacao, Peso_Total, Quantidade_Notas, Status_AS, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
             [$this->newId() ,$NumeroAS, $DataAS,$MotoristaAS,$DestinoAS, 0.00,0.00,0.00,0.00,0,1,$dataHoje,$dataHoje]);  
         }catch(Exception $e){
+
+
+            print_r($e->getMessage());
+            return;
             if($e->getCode()==23000){
-                return 'AS ja foi cadastrada anteriormente em nosso sistema, verifique novamente o numero da AS digitada!';
+                echo 'AS ja foi cadastrada anteriormente em nosso sistema, verifique novamente o numero da AS digitada!';
+                return;
             }
         }
 
@@ -154,7 +170,11 @@ class AutorizacaoServico extends Controller
             //  echo 'AS de número '.$NumeroAS.' inserida com sucesso!<br />';//inserir no arquivo de log futuramente
             
             //INSERIR AS NOTAS NO BANCO
-            $this->inserirNotasAS($tipo,$NotasAS,$NumeroAS);
+            if(empty($DigitarNotas)){
+                $this->inserirNotasASImg($tipo,$NotasAS,$NumeroAS);
+            }else{
+                $this->inserirNotasManual($textAreaNotas);
+            }
             
              $entrega = new Entrega();
             if($entrega->getLastId()==0){
@@ -187,7 +207,11 @@ class AutorizacaoServico extends Controller
                         
                         
                         //INSERIR AS NOTAS NO BANCO
-                        $this->inserirNotasAS($tipo,$NotasAS,$NumeroAS);
+                        if(empty($DigitarNotas)){
+                            $this->inserirNotasASImg($tipo,$NotasAS,$NumeroAS);
+                        }else{
+                            $this->inserirNotasManual($textAreaNotas);
+                        }
                         //    return 'temporariamente encerrado - lido';
 
 
@@ -299,7 +323,7 @@ class AutorizacaoServico extends Controller
     public function newId(){
         return $this->getLastId()+1;
     }    
-    public function inserirNotasAS($tipo,$NotasAS,$NumeroAS){
+    public function inserirNotasASImg($tipo,$NotasAS,$NumeroAS){
         $formato = explode('/',$tipo);
         for($i=0;$i<count($NotasAS['name']);$i++){
             $localImg = IMG_NOTAS_AS_C.$NumeroAS.'_'.$i.'.'.$formato[1];
@@ -313,6 +337,23 @@ class AutorizacaoServico extends Controller
             }
         }
     } 
+    public function inserirNotasManual($NotasAS){
+        $contemLetras = (new NotasAS())->contem_letra($NotasAS);
+        if($contemLetras){
+            echo 'as notas digitadas estao invalidas. numeros de notas nao podem conter letras!';
+            return;
+        }
+        $notasLimpas = (new NotasAS())->limpar_numeros($NotasAS);
+        $ArrayNotas = explode(',', $notasLimpas);
+        foreach ($ArrayNotas as $nota) {
+           if(strlen($nota)<7){
+                echo 'a nota '.$nota.' nao corresponde a uma nota valida!';
+                return;
+            }else{
+               (new NotasAS())->insertNota($this->getLastId(),$nota);
+           }
+        }
+    }
     
     public function getNotasForAS($id_as,$status=''){
         return (new NotasAS())->getNotasForAS($id_as,$status);

@@ -104,46 +104,38 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-around">
-                    <div id="Area_Ajudantes" class="col-12">
-                            <div class="row col-md-3 col-12">    
-                                <div class="div_ajudantes col-12">
-                                    <label for="" class="form-label">Ajudante: </label>  
-                                    <select class="ajudantes form-control" name="Ajudantes[]" id="Ajudantes" required>
-                                        <option value="">Selecione o 1º Ajudante</option>
-                                        @foreach ($ajudantes as $ajudante)
-                                        <option value="{{$ajudante->id}}">{{$ajudante->id}} - {{$ajudante->nome}}</option>
-                                        @endforeach
-                                    </select>   
-                                    <div>
-                                        <a href="" class="fecha_select_ajudante">X</a>                             
-                                    </div>
-                                </div>                        
-                                <a href="" id="Add_Ajudante">Add Ajudante</a>   
-                                <div id="Div_Add_Ajudante" class="col-12"> 
-                                    <!-- <div class="ajudante1 d-none">
-                                        <x-SelectColaborador :ajudante=$ajudantes/>                   
-                                    </div>
-                                    <div class="ajudante-clone d-none">
-                                        <x-SelectColaborador :ajudante=$ajudantes/>                   
-                                    </div> -->
-                                </div>          
-                            </div>                                                                   
-                        <div class="area_sem_ajudante"></div>
-                        
-                    </div> 
+                    <div id="Area_Ajudantes" class="col-12">                        
+                        <div id="Div_Add_Ajudante" class="col-12"> 
+                            <div class="ajudante1 col-md-3 col-12">
+                                <x-SelectColaborador :ajudante=$ajudantes/>                                 
+                                <a href="" id="Add_Ajudante_1">Add Ajudante 1</a>                    
+                            </div>
+                            <div class="ajudante2 col-md-3 col-12">
+                                <x-SelectColaborador :ajudante=$ajudantes/>                                 
+                                <a href="" id="Add_Ajudante_2">Add Ajudante 2</a>                    
+                            </div>
+                            <div class="ajudante3 col-md-3 col-12">
+                                <x-SelectColaborador :ajudante=$ajudantes/>                               
+                                <a href="" id="Add_Ajudante_3">Add Ajudante 3</a>                   
+                            </div>
+                        </div>      
+                    </div>                     
                 </div>     
 
-                    <div>
+                <div class="d-flex justify-content-around align-items-center p-3">
+                    <div class="col-md-3 col-12">
                         <label for="" class="form-label">Notas</label>
                         <input class="form-control" type="file" name="Notas[]" id="" multiple required>
                         <div class="form-check">
                             <label class="form-check-label" for="">Digitar manualmente </label> <input class="form-check-input" type="checkbox" name="DigitarNotas" id="">
-                            <br>
-                            <a href="">Add Nota</a>
                         </div>
-                        <!-- {{-- <video autoplay class="video"></video> --}} -->
-                    </div>                 
-                </div>
+                    </div>
+                    <div>
+                        <textarea name="NotasManual" id="" cols="100" rows="5" disabled placeholder="Digite as notas separadas por virgula" class="p-2"></textarea>
+                        <dd>*marque a caixa "digitar manualmente" ao lado para liberar a caixa de texto.</dd>
+                    </div>
+                    <!-- {{-- <video autoplay class="video"></video> --}} -->
+                </div>   
                 
                 <!-- <div>
                     <label for="">Passar Carga?</label>
@@ -158,6 +150,6 @@
             </fieldset>
         </form>
     @endif
-{{-- <button class="btn_test">teste api</button> --}}
+<!-- {{-- <button class="btn_test">teste api</button> --}} -->
 
 @endsection

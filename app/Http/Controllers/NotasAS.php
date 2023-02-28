@@ -29,7 +29,7 @@ class NotasAS extends Controller
             DB::insert('insert into notas_as (id,id_as,nota,id_tipo_pagamento,valor,status,data_conclusao,created_at,updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
                                             [0, $id_as, $nota,0,0, $status,null,date('Y-m-d H:i:s'),date('Y-m-d H:i:s')]);
         }catch(Exception $e){
-            echo 'essa nota ja esta cadastrada!';
+            echo 'essa nota ja esta cadastrada!<br />';
         }
     }
 
@@ -203,7 +203,7 @@ class NotasAS extends Controller
     }
 
     public function insertNota($id_as,$nota){
-        echo  'nota ',$nota,' inserida<br>';
+        // echo  'nota ',$nota,' inserida<br>';
         $notasAS = (new NotasAS())->create($id_as, $nota, 1);
     }
 
@@ -224,5 +224,8 @@ class NotasAS extends Controller
     }
     public function contem_letra($str){
         return ctype_alpha($str);       
+    }
+    public function limpar_numeros($str){ 
+        return preg_replace("/[^0-9-,]/", "", $str); 
     }
 }
