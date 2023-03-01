@@ -10,6 +10,7 @@
                 @yield('usuarios')
                 @yield('editUsuario')
                 @yield('error')
+                @yield('formColab')
             </div>
         </div>
 @endsection

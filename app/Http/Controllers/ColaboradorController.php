@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class Colaborador extends Controller
+
+use App\Models\Colaborador;
+
+class ColaboradorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class Colaborador extends Controller
      */
     public function index()
     {
-        //
+        return Colaborador::all();
     }
 
     /**
@@ -24,7 +26,7 @@ class Colaborador extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/forms/colaborador');
     }
 
     /**
@@ -46,7 +48,7 @@ class Colaborador extends Controller
      */
     public function show($id)
     {
-        //
+        return Colaborador::find($id)->first();
     }
 
     /**
@@ -57,7 +59,7 @@ class Colaborador extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin/forms/colaborador',['id'=>$id]);
     }
 
     /**
@@ -81,13 +83,5 @@ class Colaborador extends Controller
     public function destroy($id)
     {
         //
-    }
-    public function selectForFunction($funcao){
-        $colaboradores = DB::table('colaborador')->where('funcao',$funcao)->get();
-        return $colaboradores;
-    }
-    public function getColaborador($id){
-        $colaborador = DB::table('colaborador')->where('id',$id)->get()->first();
-        return $colaborador;
     }
 }

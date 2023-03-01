@@ -5,10 +5,10 @@
 
 <?php
     use App\Http\Controllers\ASEntrega;
-    use App\Http\Controllers\Colaborador;
     use App\Http\Controllers\Veiculo;
     use App\Http\Controllers\Entrega;
-
+    
+    use App\Models\Colaborador;
 
     $colaboradores = new Colaborador();
     $motoristas = $colaboradores->selectForFunction(1);
@@ -58,7 +58,7 @@
             <fieldset>
                 @csrf
     {{-- //Num, Data_as, Motorista_AS, Destino, Valor_Avista, Valor_Boleto, Valor_Bonificacao, Peso_Total, Quantidade_Notas, Status_AS --}}
-                <header>Formulario de entregas</header>
+                <header class="col-12 text-center"><b> Dados da AS </b></header>
                 <div class="d-flex justify-content-around">
                     <div class="col-md-3 col-12">
                         <label for="" class="form-label">AS</label>
@@ -75,15 +75,7 @@
                 </div>
                      
                 <div class="d-flex justify-content-around">
-                    <div class="col-md-3 col-12">
-                        <label for="" class="form-label">Caminhão</label>
-                        <select class="form-control"  name="VeiculoAS" id="Veiculo_AS" required>
-                            <option value="">Selecione o Veiculo</option>
-                            @foreach ($veiculos as $veiculo)
-                                <option value="{{$veiculo->id}}">{{$veiculo->id}} - {{$veiculo->placa}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    
                     <div class="col-md-3 col-12">
                         <label for="" class="form-label">Motorista AS</label>
                         <select class="form-control" name="MotoristaAS" id="Motorista_AS" required>
@@ -93,6 +85,10 @@
                             @endforeach
                         </select>
                     </div>
+                    
+                </div>
+                <div class="d-flex justify-content-around">
+                    <header class="col-12 text-center"><b> Dados da Entrega </b></header>
                     <div class="col-md-3 col-12">
                         <label for="" class="form-label">Motorista da entrega</label>
                         <select class="form-control" name="MotoristaEntregaAS" id="Motorista_Entrega_AS" required>
@@ -102,8 +98,15 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
-                <div class="d-flex justify-content-around">
+                    <div class="col-md-3 col-12">
+                        <label for="" class="form-label">Caminhão</label>
+                        <select class="form-control"  name="VeiculoAS" id="Veiculo_AS" required>
+                            <option value="">Selecione o Veiculo</option>
+                            @foreach ($veiculos as $veiculo)
+                                <option value="{{$veiculo->id}}">{{$veiculo->id}} - {{$veiculo->placa}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div id="Area_Ajudantes" class="col-12">                        
                         <div id="Div_Add_Ajudante" class="col-12"> 
                             <div class="ajudante1 col-md-3 col-12">
@@ -132,7 +135,7 @@
                     </div>
                     <div>
                         <textarea name="NotasManual" id="" cols="100" rows="5" disabled placeholder="Digite as notas separadas por virgula" class="p-2"></textarea>
-                        <dd>*marque a caixa "digitar manualmente" ao lado para liberar a caixa de texto.</dd>
+                        <dd>*marque a caixa "digitar manualmente" para liberar a caixa de texto.</dd>
                     </div>
                     <!-- {{-- <video autoplay class="video"></video> --}} -->
                 </div>   

@@ -4,6 +4,7 @@ date_default_timezone_set('America/Recife');
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AutorizacaoServico;
+use App\Http\Controllers\ColaboradorController;
 use Illuminate\Http\Request;
 
 
@@ -68,3 +69,9 @@ Route::get('/admin/consulta-entregas', function(){
 Route::controller(AutorizacaoServico::class)->group(function(){
     Route::post('/admin/entrega', 'create')->middleware('isLogged')->name('insertAS');
 });
+
+
+
+Route::resource('/admin/colaborador', ColaboradorController::class)->names([
+    'create'=>'createColaborador'
+]);

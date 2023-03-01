@@ -10,7 +10,7 @@
         </li>
         <li><a href=""><i class="fa-solid fa-clipboard-list"></i> Cadastros necessários</a>
             <ul>
-                <li><a href=""><i class="fa-solid fa-user"></i> Colaborador</a></li>
+                <li><a href="{{route('createColaborador')}}"><i class="fa-solid fa-user"></i> Colaborador</a></li>
                 <li><a href=""><i class="fa-solid fa-truck-front"></i> Veiculo</a></li>
                 <!-- <li>Motorista</li> -->
             </ul>

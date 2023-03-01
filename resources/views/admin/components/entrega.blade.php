@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\ASEntrega;
 use App\Http\Controllers\AutorizacaoServico;
-use App\Http\Controllers\Colaborador;
+use App\Models\Colaborador;
 use App\Http\Controllers\AjudanteController;
 use App\Http\Controllers\Veiculo;
 $ASEntrega = new ASEntrega();
