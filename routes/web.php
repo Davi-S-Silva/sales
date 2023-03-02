@@ -72,6 +72,6 @@ Route::controller(AutorizacaoServico::class)->group(function(){
 
 
 
-Route::resource('/admin/colaborador', ColaboradorController::class)->names([
+Route::resource('/admin/colaborador', ColaboradorController::class)->middleware('isLogged')->names([
     'create'=>'createColaborador'
 ]);

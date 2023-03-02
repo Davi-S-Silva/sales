@@ -2,7 +2,11 @@
 <?php
     use App\Models\Colaborador;
     if(isset($id)){
-        $colaborador = Colaborador::find($id)->first();
+        echo $id;
+        $colaborador = Colaborador::find($id);
+
+        // echo '<pre>';print_r($colaborador);echo '</pre>';
+        // exit;
     }
 ?>
 @section('formColab')
