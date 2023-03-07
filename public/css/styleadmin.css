@@ -173,9 +173,10 @@ a{
     /* width: 100%; */
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     flex-direction: column;
+    padding: 5px;
 }
 
 /* =================FORM ENTREGA========================== */

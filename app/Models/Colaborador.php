@@ -16,6 +16,16 @@ class Colaborador extends Model
 
 
 
+    public function getMotoristas(){
+        // $colaboradores = DB::table('colaborador')->where('funcao',$funcao)->get();
+        $colaboradores = Colaborador::where('funcao', 1)->get();
+        return $colaboradores;
+    }
+    public function getAjudantes(){
+        // $colaboradores = DB::table('colaborador')->where('funcao',$funcao)->get();
+        $colaboradores = Colaborador::where('funcao', 2)->get();
+        return $colaboradores;
+    }
     public function selectForFunction($funcao){
         // $colaboradores = DB::table('colaborador')->where('funcao',$funcao)->get();
         $colaboradores = Colaborador::where('funcao', $funcao)->get();

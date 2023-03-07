@@ -38,6 +38,13 @@ class colaboradores extends Seeder
         ]);
         DB::table('colaboradores')->insert([
             'id'=>0,
+            'nome' => 'chapa',
+            'funcao' => 2,
+            'situacao_acesso' => 0,
+            'created_at'=>date('Y/m/d H:m:i')
+        ]);
+        DB::table('colaboradores')->insert([
+            'id'=>0,
             'nome' => 'Jeova',
             'funcao' => 2,
             'situacao_acesso' => 1,

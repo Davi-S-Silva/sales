@@ -100,7 +100,38 @@
  <div>
     <header>sobre os modulos e funcionalidades</header>
     <h1>AS</h1>
-    <p>Ao inserir a AS vai ser solicitado fotos da parte da nota que compoe a As ou pode digitar manualmente cada nota marcando a opçao "Digitar manualmente" no formulario!</p>
+    <p>Ao inserir a AS vai ser solicitado fotos da parte da nota que
+         compoe a As ou pode digitar manualmente cada nota marcando a opçao "Digitar manualmente" no formulario!</p>
+ </div>
+
+
+
+ <div>
+    <header><h1> Status do sistema</h1></header>
+    <section>
+        <h2>AS</h2>
+        <ul>
+            <li>1 = AS nova inserida mas nao usada</li>
+            <li>2 = AS ja esta em uma entrega</li>
+            <li>3 = AS ja esta concluida</li>
+        </ul>
+    </section>
+    <section>
+        <h2>Entregas</h2>
+        <ul>
+            <li>1 = Entrega Nova</li>
+            <li>2 = Entrega ja está na Rota</li>
+            <li>3 = Entrega ja está concluida</li>
+        </ul>
+    </section>
+    <section>
+        <h2>Notas</h2>
+        <ul>
+            <li>1 = Nota Pendente</li>
+            <li>2 = Nota Retornou</li>
+            <li>3 = Nota Entregue</li>
+        </ul>
+    </section>
  </div>
 
 

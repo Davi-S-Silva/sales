@@ -19,7 +19,7 @@ class Entrega extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.telas.entregas');
     }
 
     /**
@@ -27,13 +27,9 @@ class Entrega extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($motorista, $veiculo)
+    public function create()
     {
-        $insertEntrega = DB::insert('insert into entrega (id, id_veiculo, id_motorista, id_status, data, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?)', 
-                                        [$this->newId(), $veiculo, $motorista, 1,date('Y-m-d'), date('Y-m-d H:i:s'), date('Y-m-d H:i:s')]);
-        if($insertEntrega){
-            return true;
-        }
+        return view('admin.forms.entrega');
     }
 
     /**
@@ -42,9 +38,17 @@ class Entrega extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $motorist='', $veiculo='', $cliente='')
     {
-        //
+
+
+        print_r($_REQUEST);
+
+        // $insertEntrega = DB::insert('insert into entrega (id, id_veiculo, id_motorista, id_cliente, id_status, data, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?)', 
+        //                                 [$this->newId(), $veiculo, $motorista, $cliente, 1,date('Y-m-d'), date('Y-m-d H:i:s'), date('Y-m-d H:i:s')]);
+        // if($insertEntrega){
+        //     return true;
+        // }
     }
 
     /**

@@ -3,7 +3,8 @@ date_default_timezone_set('America/Recife');
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AutorizacaoServico;
+// use App\Http\Controllers\AutorizacaoServico;
+use App\Http\Controllers\Entrega;
 use App\Http\Controllers\ASController;
 use App\Http\Controllers\ColaboradorController;
 use App\Http\Controllers\VeiculoController;
@@ -21,14 +22,14 @@ Route::get('/admin', function () {
 })->middleware('isLogged')->name('admin');
 
 
-Route::get('/admin/entrega/{id?}', function($id = ""){
-    return view('admin/telas/entrega', ['idEntrega'=>$id]);
-})->middleware('isLogged')->name('entrega');
+// Route::get('/admin/entrega/{id?}', function($id = ""){
+//     return view('admin/telas/entrega', ['idEntrega'=>$id]);
+// })->middleware('isLogged')->name('entrega');
 
 
-Route::post('/admin/entrega', function(){
-    return view('admin/telas/entrega');
-})->middleware('isLogged')->name('entrega');
+// Route::post('/admin/entrega', function(){
+//     return view('admin/telas/entrega');
+// })->middleware('isLogged')->name('entrega');
 
 
 Route::post('/admin/upload', function(){
@@ -78,10 +79,15 @@ Route::get('/admin/consulta-entregas', function(){
     return view('admin/telas/entregas');
 })->middleware('isLogged')->name('entregas');
 
-// Route::controller(AutorizacaoServico::class)->group(function(){
-//     Route::post('/admin/entrega', 'create')->middleware('isLogged')->name('insertAS');
-// });
 
+Route::resource('/admin/entrega', Entrega::class)->middleware('isLogged')->names([
+    'create'=>'createEntrega',
+    'index'=>'entregas',
+    // '{as?}/edit'=>'editarAS'
+]);
+Route::controller(Entrega::class)->group(function(){
+    Route::post('/admin/entrega', 'store')->middleware('isLogged')->name('insertEntrega');
+});
 // Route::controller(UserController::class)->group(function(){
 //     Route::post('/logar', 'validalogin');
 //     Route::get('/logar', 'logar');

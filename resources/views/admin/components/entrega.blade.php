@@ -15,7 +15,7 @@ $veiculo = new Veiculo();
 <article class="col-lg-3 col-md-4 col-sm-6 col-12">   
     <header class="col-12">
         <div class="placa_entrega col-12">
-            <span> Entrega: <a href="{{route('entrega',['id'=>$entrega->id])}}">
+            <span> Entrega: <a href="">
             <b>{{$entrega->id}}</b></a></span> <span> Placa: {{$veiculo->getPlacaById($entrega->id_veiculo)->placa}}</span>
         </div>
         <div class="equipe_entrega col-12">

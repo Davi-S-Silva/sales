@@ -15,6 +15,7 @@
                 @yield('insertAS')<!--form inserir AS-->
                 @yield('getAllAS')<!--busca todas AS-->
                 @yield('editAS')<!--editar AS-->
+                @yield('createEntrega')<!--Criar entrega-->
             </div>
         </div>
 @endsection
