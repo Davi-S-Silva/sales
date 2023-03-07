@@ -130,7 +130,7 @@ class Entrega extends Controller
         return DB::select('select * from entrega');
     }
     public function getMesmaEntrega($veiculo,$motorista,$data){
-        echo $veiculo,$motorista, $data;
+        echo 'Entrega Controller: ',$veiculo,$motorista, $data;
         $entrega = DB::select('select id_veiculo, id_motorista, data from entrega where id_motorista = :motorista and data = :dataentrega',
                     ['motorista'=>$motorista, 'dataentrega'=>$data]);
 

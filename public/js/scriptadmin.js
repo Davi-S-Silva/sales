@@ -39,7 +39,8 @@ $(document).ready(function (){
                 // alert(response)
             },
             error: function(response){
-                alert('erro!'+response)
+                alert('erro!')
+                console.log(response)
             }
         });     
         return false;

@@ -29,8 +29,8 @@ return new class extends Migration
      */
     public function down()
     {
-        if (Schema::hasTable('colaborador')) {
-            Schema::drop('colaborador');
+        if (Schema::hasTable('colaboradores')) {
+            Schema::drop('colaboradores');
         }
     }
 };

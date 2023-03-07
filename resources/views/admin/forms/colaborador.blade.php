@@ -21,6 +21,7 @@
             <label for="">Função</label>
             <select class="form-control"  name="" id="">
                 <?php if(isset($colaborador->funcao)) { echo '<option value="'.$colaborador->funcao.'" selected>'.$colaborador->funcao.'</option>';}?>
+                <option value="">Selecione a função</option>
                 <option value="">Motorista</option>
                 <option value="">Adminstrativo</option>
                 <option value="">Encarregado</option>

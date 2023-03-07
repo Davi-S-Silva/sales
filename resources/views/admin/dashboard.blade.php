@@ -11,6 +11,10 @@
                 @yield('editUsuario')
                 @yield('error')
                 @yield('formColab')
+                @yield('veiculo')
+                @yield('insertAS')<!--form inserir AS-->
+                @yield('getAllAS')<!--busca todas AS-->
+                @yield('editAS')<!--editar AS-->
             </div>
         </div>
 @endsection

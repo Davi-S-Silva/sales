@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             tipo_motivo::class,
             tipo_pagamento::class,
             motivo::class,
-            colaborador::class,
+            colaboradores::class,
             veiculo::class,
             SituacaoAcessoSeeder::class,
             FuncaoColaboradorSeeder::class,

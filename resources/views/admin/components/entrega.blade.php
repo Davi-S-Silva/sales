@@ -3,7 +3,7 @@ use App\Http\Controllers\ASEntrega;
 use App\Http\Controllers\AutorizacaoServico;
 use App\Models\Colaborador;
 use App\Http\Controllers\AjudanteController;
-use App\Http\Controllers\Veiculo;
+use App\Models\Veiculo;
 $ASEntrega = new ASEntrega();
 $ASsEntrega = $ASEntrega->getASEntrega($entrega->id);
 $colaborador = new Colaborador();

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\Entrega;
 use App\Http\Controllers\AjudanteController;
-use App\Http\Controllers\Veiculo;
+use App\Models\Veiculo;
 use App\Http\Controllers\NotasAS;
 
 use thiagoalessio\TesseractOCR\TesseractOCR;
@@ -47,6 +47,7 @@ class AutorizacaoServico extends Controller
         $textAreaNotas   =   $request['NotasManual'];
         
         
+       
 
         if(empty($DigitarNotas)){
             $NotasAS            =   $_FILES['Notas'];
@@ -86,7 +87,7 @@ class AutorizacaoServico extends Controller
                 }
                 
             }
-
+         
             if(isset($NotasAS['name'])){
                 if(count($NotasAS['name'])==0){
                     return "Escolha a foto das notas da AS!";
@@ -97,7 +98,7 @@ class AutorizacaoServico extends Controller
 
         // echo '<br /> <br /><hr /><pre>';print_r($NotasAS);echo '</pre>';
         
-        
+       
 
         if($NumeroAS==""){
             return "Preencha corretamente o número da AS!";
@@ -122,12 +123,13 @@ class AutorizacaoServico extends Controller
         //verificar se o motorista ja esta com o caminhao em alguma entrega 
         //pra nao sair motorista em dois caminhoes ou dois caminhoes em um motorista
         //no veiculo ja tem motorista?
-
+        // echo 'to aqui';
         $veiculo = new Veiculo();
         if(!$veiculo->verificaVeiculoOuMotorista($VeiculoAS, $MotoristaEntregaAS)){
+            echo 'to aqui';
             return ;
         }
-
+       
 
 
         if(isset($Ajudantes)){
@@ -147,7 +149,6 @@ class AutorizacaoServico extends Controller
         if($DestinoAS==""){
             return "Insira o Destino da Entrega!";
         }
-        
         // echo $DataAS;
         // return $request;
         // return $dados;
@@ -158,8 +159,8 @@ class AutorizacaoServico extends Controller
         }catch(Exception $e){
 
 
-            print_r($e->getMessage());
-            return;
+            // print_r($e->getMessage());
+            // return;
             if($e->getCode()==23000){
                 echo 'AS ja foi cadastrada anteriormente em nosso sistema, verifique novamente o numero da AS digitada!';
                 return;

@@ -5,7 +5,7 @@
 
 <?php
     use App\Http\Controllers\ASEntrega;
-    use App\Http\Controllers\Veiculo;
+    use App\Models\Veiculo;
     use App\Http\Controllers\Entrega;
     
     use App\Models\Colaborador;
@@ -54,7 +54,7 @@
     @else 
 
     <h1>validar os campos no javascript e no php</h1>
-        <form action="{{route('insertAS')}}" method="post" name="InsertAS" enctype="multipart/form-data" class="form-control">
+        <form action="" method="post" name="InsertAS" enctype="multipart/form-data" class="form-control">
             <fieldset>
                 @csrf
     {{-- //Num, Data_as, Motorista_AS, Destino, Valor_Avista, Valor_Boleto, Valor_Bonificacao, Peso_Total, Quantidade_Notas, Status_AS --}}
