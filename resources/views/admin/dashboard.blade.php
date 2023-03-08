@@ -4,9 +4,11 @@
             <div class="menu_lateral col-md-2 col-12">
                 @include('admin/includes/menu_lateral')
             </div>         
-            <div class="conteudo_dashboard col-md-10 col-12">                
+            <div class="conteudo_dashboard col-md-10 col-12">    
+                @yield('home')
                 @yield('entrega')
                 @yield('entregas')
+                @yield('notas')
                 @yield('usuarios')
                 @yield('editUsuario')
                 @yield('error')

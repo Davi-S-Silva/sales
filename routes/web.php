@@ -8,6 +8,7 @@ use App\Http\Controllers\Entrega;
 use App\Http\Controllers\ASController;
 use App\Http\Controllers\ColaboradorController;
 use App\Http\Controllers\VeiculoController;
+use App\Http\Controllers\NotasAS;
 use Illuminate\Http\Request;
 
 
@@ -18,7 +19,7 @@ Route::get('/', function () {
     return view('home');
 });
 Route::get('/admin', function () {
-    return view('admin/telas/entregas');
+    return view('admin/telas/home');
 })->middleware('isLogged')->name('admin');
 
 
@@ -75,11 +76,21 @@ Route::resource('/admin/usuarios', UserController::class)->middleware('isLogged'
 ]);
 //throw new Exception("Error Processing Request", 1);
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+//NOTAS
+Route::resource('admin/notas', NotasAS::class)->middleware(['isLogged'])->names([
+    'create'=>'createNota',
+    'index'=>'notas',
+]);
+//FIM NOTAS
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+//ENTREGAS
 Route::get('/admin/consulta-entregas', function(){
     return view('admin/telas/entregas');
 })->middleware('isLogged')->name('entregas');
-
-
 Route::resource('/admin/entrega', Entrega::class)->middleware('isLogged')->names([
     'create'=>'createEntrega',
     'index'=>'entregas',
@@ -88,6 +99,10 @@ Route::resource('/admin/entrega', Entrega::class)->middleware('isLogged')->names
 Route::controller(Entrega::class)->group(function(){
     Route::post('/admin/entrega', 'store')->middleware('isLogged')->name('insertEntrega');
 });
+//FIM ENTREGAS
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
 // Route::controller(UserController::class)->group(function(){
 //     Route::post('/logar', 'validalogin');
 //     Route::get('/logar', 'logar');

@@ -33,7 +33,7 @@
                     <a href="{{route('allAS')}}"><i class="fa-regular fa-note-sticky"></i> AS</a>
                     <a href="{{route('createAS')}}">Inserir AS</a>
                 </li>
-                <li><a href=""><i class="fa-solid fa-note-sticky"></i> Notas</a></li>
+                <li><a href="{{route('notas')}}"><i class="fa-solid fa-note-sticky"></i> Notas</a></li>
             </ul>
         </li>  
         <li>

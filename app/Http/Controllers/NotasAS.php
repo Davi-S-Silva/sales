@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use App\Models\Nota;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 class NotasAS extends Controller
 {
@@ -15,7 +16,7 @@ class NotasAS extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.telas.notas');
     }
 
     /**

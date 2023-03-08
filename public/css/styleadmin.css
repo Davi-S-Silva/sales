@@ -364,22 +364,33 @@ footer{
 
 /* ===========TELA USUARIOS========== */
 .ul_usuarios{
-    background-color: aqua;
+    /* background-color: aqua; */
     padding: 2px;
     margin: 0;
 }
-.ul_usuarios li{
-    background-color: antiquewhite;
-    padding: 0;
-    margin: 2px;
+.ul_usuarios ul{
+    /* background-color: #313A46; */
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
+.ul_usuarios ul li{
+    /* background-color: antiquewhite; */
+    padding: 2px 0;
+    border-bottom: 1px solid #ccc;
+}
+.ul_usuarios .topo_usuarios li{
+    background-color: #232629;
+    color: #fff;
+}
+/*
 .ul_usuarios li div{
     background-color: yellowgreen;
     padding: 0;
 }
 .ul_usuarios li div ul, .ul_usuarios li div ul li{
     padding: 0;
-}
+} */
 
 /* ===========PAGINA=DADOS=ENTREGA=== */
 .toda_entrega{

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('id_tipo_pagamento');
             $table->decimal('valor', 8, 2);
             $table->integer('status');
+            $table->integer('user_insercao');
+            $table->integer('user_conclusao');
             $table->date('data_conclusao')->nullable();
             $table->timestamps();
         });

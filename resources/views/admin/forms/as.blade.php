@@ -1,5 +1,8 @@
 @extends('admin.dashboard')
-
+<?php
+use App\Models\Colaborador;
+// echo '<pre>';print_r((new Colaborador())->getMotoristas());echo '</pre>';
+?>
 @section('insertAS')
 <form action="" method="post" name="InsertAS" enctype="multipart/form-data" class="col-12">
     <fieldset>
@@ -24,12 +27,13 @@
         <div class="d-flex justify-content-around">
             
             <div class="col-md-3 col-12">
-                <label for="" class="form-label">Motorista AS</label>
+                <label for="" class="form-label">Motorista da AS</label>
+               
                 <select class="form-control" name="MotoristaAS" id="Motorista_AS" required>
                     <option value="">Selecione o Motorista da AS</option>
-                    {{-- @foreach ($motoristas as $motorista)
+                    @foreach ((new Colaborador())->getMotoristas() as $motorista)
                         <option value="{{$motorista->id}}">{{$motorista->id}} - {{$motorista->nome}}</option>
-                    @endforeach --}}
+                    @endforeach
                 </select>
             </div>
             

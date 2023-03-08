@@ -7,13 +7,13 @@
 @extends('admin/dashboard')
 @section('entregas')
 <section class="container_entregas col-12">
-    <section>
+    {{-- <section>
         <form action="" method="post">
             <fieldset>
                 <input type="search" name="" id=""/>
             </fieldset>
         </form>
-    </section>
+    </section> --}}
     <header>
         total de Entregas {{$Entrega->getCount()}}
     </header>

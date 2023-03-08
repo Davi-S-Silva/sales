@@ -10,14 +10,21 @@
 <form action="{{route('insertEntrega')}}" method="post" name="InsertAS" enctype="multipart/form-data">
     <fieldset>
     @csrf
-        <header>Entrega</header>
-        <div class="col-12 d-flex justify-content-center">
+        <header class="col-12 text-center"> <b>Cargas</b></header>
+        <div class="col-12 d-flex justify-content-center text-center">
+            <!-- @for($i=0;$i<1;$i++) -->
             @foreach($ASs as $AS)
             <!-- {{print($AS)}} -->
-                <div class="col-3"> <input type="checkbox" name="ASEntrega[]" id="" value="{{$AS->id}}"> 
-                    AS:{{$AS->num}} - destino:{{$AS->destino}} - motorista:{{(new Colaborador())->getColaborador($AS->motorista_as)->nome}}
+                <div class="d-flex justify-content-center border col-md-2 col-5 bg-light p-1 m-1"> 
+                    <input type="checkbox" name="ASEntrega[]" id="AS_{{$AS->num}}" value="{{$AS->id}}">
+                    <label for="AS_{{$AS->num}}">
+                        <div class="d-flex justify-content-between col-12 m-0"><b class="mx-2">AS: </b> {{$AS->num}}</div>
+                        <div class="d-flex justify-content-between col-12 m-0"><b class="mx-2">Destino: </b> {{$AS->destino}}</div> 
+                        <div class="d-flex justify-content-between col-12 m-0"><b class="mx-2">Motorista:</b> {{(new Colaborador())->getColaborador($AS->motorista_as)->nome}}</div>
+                    </label>
                 </div>
             @endforeach
+            <!-- @endfor -->
         </div>
 
         <div class="d-flex justify-content-around">
